@@ -4,8 +4,11 @@
 
 A tidy statusline for neovim written in lua featuring
 🔋 Batteries Included. No configuration neccessary
+
 🕴  Minimalist Mode Indicators
+
 👁  Git Change [Signify]
+
 🌴 Git Branch [Fugitive]
 ❗️ Linter Status [Ale]
 🔦 LSP Current Function [builtinlsp.current_function]
