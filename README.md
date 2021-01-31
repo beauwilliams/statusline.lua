@@ -2,7 +2,8 @@
 
 ![screencast](https://i.ibb.co/DM0pykL/op.gif)
 
-A tidy statusline for neovim written in lua featuring
+***A tidy statusline for neovim written in lua featuring***
+
 🔋 Batteries Included. No configuration neccessary
 
 🕴  Minimalist Mode Indicators
@@ -10,13 +11,21 @@ A tidy statusline for neovim written in lua featuring
 👁  Git Change [Signify]
 
 🌴 Git Branch [Fugitive]
+
 ❗️ Linter Status [Ale]
+
 🔦 LSP Current Function [builtinlsp.current_function]
+
 ❓ File Modified Status
+
 👌 Clean Ruler
+
 ⚙️  File Icons
+
 🙌 Snipped File Paths
+
 😻 Tabline Support
+
 🚀 File Icon Support [Dev Icons]
 
 ## Installation
