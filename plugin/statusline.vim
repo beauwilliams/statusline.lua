@@ -19,11 +19,11 @@ function! StatusLSPNative() abort
 endfunction
 
 function! InactiveLine()
-    return luaeval("require'beauwilliams.statusline'.inActiveLine()")
+    return luaeval("require'statusline'.inActiveLine()")
 endfunction
 
 function! ActiveLine()
-    return luaeval("require'beauwilliams.statusline'.activeLine()")
+    return luaeval("require'statusline'.activeLine()")
 endfunction
 
 " Change statusline automatically
@@ -34,7 +34,7 @@ augroup Statusline
 augroup END
 
 function! TabLine()
-    return luaeval("require'beauwilliams.statusline'.TabLine()")
+    return luaeval("require'statusline'.TabLine()")
 endfunction
 
 set tabline=%!TabLine()

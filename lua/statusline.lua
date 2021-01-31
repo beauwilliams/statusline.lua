@@ -4,7 +4,7 @@
 
 local api = vim.api
 local icons = require 'devicon'
-local Utils = require 'beauwilliams.utils'
+local Utils = require 'utils'
 local M = {}
 
 -- Different colors for mode
