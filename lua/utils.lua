@@ -1,7 +1,7 @@
 
 local api = vim.api
 
-local Utils = {}
+local utils = {}
 
 local function map(type, input, output)
     api.nvim_set_keymap(type, input, output, {})
@@ -44,23 +44,23 @@ function tmap(input, output)
 end
 
 -- returns nil if not exists
-function Utils.is_dir(filepath)
+function utils.is_dir(filepath)
     local ok, _ = os.rename(filepath, filepath)
     return ok
 end
 
 
-Utils.Exists = function(variable)
+utils.Exists = function(variable)
     local loaded = api.nvim_call_function('exists', {variable})
     return loaded ~= 0
 end
 
-Utils.Call = function(arg0, arg1)
+utils.Call = function(arg0, arg1)
     return api.nvim_call_function(arg0, arg1)
 end
 
-Utils.IsVersion5 = function()
+utils.IsVersion5 = function()
     return api.nvim_call_function('has', {'nvim-0.5'}) == 1
 end
 
-return Utils
+return utils

@@ -11,7 +11,7 @@
 
 local api = vim.api
 local icons = require 'devicon'
-local Utils = require 'utils'
+local utils = require 'utils'
 local M = {}
 
 -- Different colors for mode
@@ -205,7 +205,7 @@ end
 local function cocStatus()
   local cocstatus = ''
   if vim.fn.exists('*coc#status') == 0 then return '' end
-    cocstatus = Utils.Call('coc#status', {})
+    cocstatus = utils.Call('coc#status', {})
   return cocstatus
 end
 
