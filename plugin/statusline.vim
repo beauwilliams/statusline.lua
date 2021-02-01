@@ -1,9 +1,3 @@
-
-
-
-"============================BEGIN STATUSLINE CONFIG=======================
-
-
    "_____  ______    ___   ______   __  __   _____    __     ____    _   __    ______
   "/ ___/ /_  __/   /   | /_  __/  / / / /  / ___/   / /    /  _/   / | / /   / ____/
   "\__ \   / /     / /| |  / /    / / / /   \__ \   / /     / /    /  |/ /   / __/
@@ -11,12 +5,6 @@
 "/____/  /_/     /_/  |_|/_/     \____/   /____/  /_____//___/   /_/ |_/   /_____/
 
 
-
-function! StatusLSPNative() abort
-" let status = luaeval('require("lsp-status").status()')
-"let status = luaeval("require'beauwilliams.statusline'.status()")
-"return trim(status)
-endfunction
 
 function! InactiveLine()
     return luaeval("require'statusline'.inActiveLine()")
