@@ -1,3 +1,10 @@
+--[[
+   _____  ______    ___   ______   __  __   _____    __     ____    _   __    ______
+  / ___/ /_  __/   /   | /_  __/  / / / /  / ___/   / /    /  _/   / | / /   / ____/
+  \__ \   / /     / /| |  / /    / / / /   \__ \   / /     / /    /  |/ /   / __/
+ ___/ /  / /     / ___ | / /    / /_/ /   ___/ /  / /___ _/ /    / /|  /   / /___
+/____/  /_/     /_/  |_|/_/     \____/   /____/  /_____//___/   /_/ |_/   /_____/
+--]]
 ------------------------------------------------------------------------
 --                             Variables                              --
 ------------------------------------------------------------------------
@@ -26,47 +33,31 @@ local right_separator = ''
 -- Blank Between Components
 local blank = ' '
 
-local warningIcon = ''
-local exclamationIcon = ''
-local plusIcon = ''
-local tildeIcon = 'ﰣ'
-local minusIcon = ''
-local errorIcon =''
+-- Icons (future use)
+-- local warningIcon = ''
+-- local exclamationIcon = ''
+-- local plusIcon = ''
+-- local tildeIcon = 'ﰣ'
+-- local minusIcon = ''
+-- local errorIcon =''
 
 ------------------------------------------------------------------------
 --                             Colours                                --
 ------------------------------------------------------------------------
--- INIT
-
---function! SetStatusline() abort
-    --luafile ~/.config/nvim/lua/beauwilliams/statusline.lua
---endfunction
-
- --"Change statusline automatically
---augroup Statusline
-  --autocmd!
-  --autocmd WinEnter,BufEnter * :call SetStatusline()
-  --autocmd WinLeave,BufLeave * setlocal statusline=
---augroup END
-
-
-  --autocmd WinEnter,BufEnter * :call SetStatusline()
-  --autocmd WinLeave,BufLeave * setlocal statusline=
-
 
 -- Mode Prompt Table
 local current_mode = setmetatable({
       ['n'] = 'N',
       ['no'] = 'N·Operator Pending',
-      ['v'] = 'VISUAL',
-      ['V'] = 'V·Line',
-      ['^V'] = 'V·Block',
+      ['v'] = 'V',
+      ['V'] = 'V',
+      ['^V'] = 'V',
       ['s'] = 'Select',
       ['S'] = 'S·Line',
       ['^S'] = 'S·Block',
       ['i'] = 'I',
-      ['ic'] = 'INSERT',
-      ['ix'] = 'INSERT',
+      ['ic'] = 'I',
+      ['ix'] = 'I',
       ['R'] = 'Replace',
       ['Rv'] = 'V·Replace',
       ['c'] = 'C',
@@ -84,11 +75,6 @@ local current_mode = setmetatable({
       end
     }
 )
-
- --Obsession Color
---local obsession_fg = purple
---local obsession_gui = 'bold'
---api.nvim_command('hi Obsession guifg='..obsession_fg..' gui='..obsession_gui)
 
 -- Filename Color
 local file_bg = purple
@@ -119,10 +105,6 @@ api.nvim_command('hi Line guibg='..line_bg..' guifg='..line_fg)
 --LSP Function Highlight Color
 api.nvim_command('hi StatuslineLSPFunc guibg='..line_bg..' guifg='..green)
 
-
-
-
-
 -- Redraw different colors for different mode
 local RedrawColors = function(mode)
   if mode == 'n' then
@@ -146,9 +128,6 @@ local RedrawColors = function(mode)
     api.nvim_command('hi ModeSeparator guifg='..red)
   end
 end
-
-
-
 
 ------------------------------------------------------------------------
 --                              Functions                             --
@@ -180,15 +159,6 @@ local function getFileIcon()
     return ''
   end
 end
-
---local function getBranchBubbly()
---local data = vim.b.git_branch
-   --if data ~= '' then
-     --return data
-   --end
- --end
- --print(getBranchBubbly())
-
 
 
 local function getGitBranch() --> NOTE: THIS FN HAS AN ASYNC ISSUE AND NEEDS TO BE DEALT WITH LATER
@@ -234,11 +204,8 @@ end
 -- neoclide/coc.nvim
 local function cocStatus()
   local cocstatus = ''
-  -- local exists = Utils.Exists('coc#status')
   if vim.fn.exists('*coc#status') == 0 then return '' end
-  -- if exists == 0 then
     cocstatus = Utils.Call('coc#status', {})
-  -- end
   return cocstatus
 end
 
@@ -284,74 +251,43 @@ function M.activeLine()
   -- Component: Filetype and icons
   statusline = statusline.."%#Line#"..getBufferName()
   statusline = statusline..getFileIcon()
-  statusline = statusline..cocStatus()
 
   -- Component: errors and warnings -> requires ALE
   statusline = statusline..vim.call('LinterStatus')
+  -- SUPPORT COC LATER, NEEDS TESTING WITH COC USERS FIRST
+  -- statusline = statusline..cocStatus()
 
   -- Component: git commit stats -> REQUIRES SIGNIFY
   statusline = statusline..signify()
   -- statusline = statusline..vim.call('GitStats')
+
+
   -- Component: git branch name -> requires FUGITIVE
   statusline = statusline..vim.call('GetGitBranchName')
-  --statusline = statusline..getGitBranch()
-  --statusline = statusline..co
-
-  --LEAVING FOR REF DEC 2020
-  --statusline = statusline..[[%{MyStatusline()}]]
-  --local lintStatus = api.nvim_call_function('Test')
-  --statusline = statusline..blank
-  --statusline = statusline..getGitBranch() -- HAS AN ASYNC ISSUE
-  --SEE HERE https://vi.stackexchange.com/questions/27003/how-to-start-an-async-function-in-vim-8
+  --statusline = statusline..getGitBranch() -- HAS AN ASYNC ISSUE, USE PLENARY TO START JOB, SEE EXPRESSLINE FOR EG
 
   -- Alignment to left
   statusline = statusline.."%="
 
+  -- Component: LSP CURRENT FUCTION --> Requires LSP
   local lsp_function = vim.b.lsp_current_function
   if lsp_function ~= nil then
     statusline = statusline.."%#StatuslineLSPFunc# "..lsp_function..blank
   end
 
-    --statusline = statusline..vim.call('StatusLSPNative')
-    --statusline = statusline..vim.b.lsp
-
-
-
     -- RIGHT SIDE INFO
+  -- Component: Modified, Read-Only, Filesize, Row/Col
     statusline = statusline.."%#Line#"..vim.call('FileIsModified') --."%#Line#" ..[[%M]].
     statusline = statusline..vim.call('ReadOnly')..vim.call('FileSize')..[[ʟ %l/%L c %c]]..blank
-    --statusline = statusline..blank
-  --local filetype = api.nvim_buf_get_option(0, 'filetype')
-  --statusline = statusline.."%#Filetype#  Filetype: "..filetype
-  --statusline = statusline..blank
+    api.nvim_command('set noruler') --disable line numbers in bottom right for our custom indicator as above
 
-  -- Component: FileType
-  -- Component: row and col
-  api.nvim_command('set noruler') --disable line numbers in bottom right
---[[
-  local line = api.nvim_call_function('line', {"."})
-  local col = vim.fn.col('.')
-  while string.len(line) < 3 do
-    line = line..blank
-  end
-  while string.len(col) < 3 do
-    col = col..blank
-  end
-  statusline = statusline.."%#Line# ℓ "..line.." 𝚌 "..col
---]]
   return statusline
 end
-
-
-
 
 
 ------------------------------------------------------------------------
 --                              Inactive                              --
 ------------------------------------------------------------------------
-
-
-
 -- INACTIVE BUFFER Colours
 local InactiveLine_bg = '#1c1c1c'
 local InactiveLine_fg = white_fg
@@ -421,12 +357,3 @@ function M.TabLine()
   return tabline
 end
 return M
-
-
--- SET THE STATUS LINE
---local wo = vim.wo
---wo.statusline = '%!luaeval("activeLine()")'
---api.nvim_command('autocmd BufEnter * :call SetStatusline()')
---api.nvim_command('autocmd WinEnter * :call SetStatusline()')
---api.nvim_command('autocmd BufLeave * :setlocal statusline=')
---api.nvim_command('autocmd WinLeave * :setlocal statusline=')
