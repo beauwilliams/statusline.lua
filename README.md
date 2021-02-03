@@ -20,13 +20,13 @@
 
 👌 Clean Ruler
 
-⚙️  File Icons
+⚙️  File Icons Support [Dev Icons]
 
 🙌 Snipped File Paths
 
 😻 Tabline Support
 
-🚀 File Icon Support [Dev Icons]
+🚀 More to come! 
 
 ## Installation
 ### [vim-plug](https://github.com/junegunn/vim-plug)
