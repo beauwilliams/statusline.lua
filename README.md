@@ -44,7 +44,7 @@ use {
 ```
 
 
-## Dependencies
+## Optional Dependencies
 
     - Signify
     - Ale
