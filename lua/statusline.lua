@@ -24,7 +24,7 @@ local red = '#fb4934' --#BF616A
 -- fg and bg
 local white_fg = '#b8b894'
 local black_fg = '#282c34'
-local bg = '#4d4d4d'
+local bg = '#504945'
 
 -- Separators
 local left_separator = ''
@@ -324,12 +324,12 @@ local getTabLabel = function(n)
   return file_name
 end
 
-api.nvim_command('hi TabLineSel gui=Bold guibg=#81A1C1 guifg=#292929')
-api.nvim_command('hi TabLineSelSeparator gui=bold guifg=#81A1C1')
-api.nvim_command('hi TabLine guibg=#4d4d4d guifg=#c7c7c7 gui=None')
-api.nvim_command('hi TabLineSeparator guifg=#4d4d4d')
-api.nvim_command('hi TabLineFill guibg=None gui=None')
 
+api.nvim_command('hi TabLineSel gui=Bold guibg=#8ec07c guifg=#292929')
+api.nvim_command('hi TabLineSelSeparator gui=bold guifg=#8ec07c')
+api.nvim_command('hi TabLine guibg=#504945 guifg=#b8b894 gui=None')
+api.nvim_command('hi TabLineSeparator guifg=#504945')
+api.nvim_command('hi TabLineFill guibg=None gui=None')
 
 
 
