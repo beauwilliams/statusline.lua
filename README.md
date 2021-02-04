@@ -20,13 +20,15 @@
 
 👌 Clean Ruler
 
-⚙️  File Icons Support [Dev Icons]
+⚙️  File Icon Support [Dev Icons]
 
 🙌 Snipped File Paths
 
 😻 Tabline Support
 
-🚀 More to come! 
+🎨 Smooth colours inspired by gruvbox
+
+🚀 More to come!
 
 ## Installation
 ### [vim-plug](https://github.com/junegunn/vim-plug)
@@ -38,8 +40,8 @@ Plug 'kyazdani42/nvim-web-devicons'
 ### [packer.nvim](https://github.com/wbthomason/packer.nvim)
 ```lua
 use {
-  'beauwilliams/statusline.lua',
-  requires = {'kyazdani42/nvim-web-devicons', opt = true}
+'beauwilliams/statusline.lua',
+requires = {'kyazdani42/nvim-web-devicons', opt = true}
 }
 ```
 
@@ -50,7 +52,7 @@ use {
     - Ale
     - Fugitive
     - Dev Icons
-*I plan to shed some dependencies later once we get Async working for the Git Status & Git Branch (leaving this statusline with a total of 2 dependencies)*
+    *I plan to shed some dependencies later once we get Async working for the Git Status & Git Branch (leaving this statusline with a total of 2 dependencies)*
 
 ## Planned Improvements 😼
 
