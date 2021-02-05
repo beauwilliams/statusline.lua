@@ -10,7 +10,7 @@
 
 👁  Git Change [Signify]
 
-🌴 Git Branch [Fugitive]
+🌴 Git Branch
 
 ❗️ Linter Status [Ale]
 
@@ -50,7 +50,6 @@ requires = {'kyazdani42/nvim-web-devicons', opt = true}
 
     - Signify
     - Ale
-    - Fugitive
     - Dev Icons
     *I plan to shed some dependencies later once we get Async working for the Git Status & Git Branch (leaving this statusline with a total of 2 dependencies)*
 
