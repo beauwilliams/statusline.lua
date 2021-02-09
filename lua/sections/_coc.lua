@@ -1,4 +1,4 @@
-local utils = require '_utils'
+local utils = require 'modules.utils'
 local M = {}
 -- neoclide/coc.nvim
 function M.cocStatus()
