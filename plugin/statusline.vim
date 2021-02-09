@@ -25,6 +25,7 @@ function! TabLine()
     return luaeval("require'modules.tabline'.TabLine()")
 endfunction
 
+"SET TABLINE. ONLY NEED DO ONCE ONLY
 set tabline=%!TabLine()
 
 
