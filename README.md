@@ -14,7 +14,7 @@
 
 ❗️ Linter Status [Ale]
 
-🔦 LSP Current Function [builtinlsp.current_function]
+🔦 LSP Current Function [builtinlsp.current_function] --> Requires adding `lsp_status.on_attach(client)` on attach. 0 config workaround coming :)
 
 ❓ File Modified Status
 
