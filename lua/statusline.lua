@@ -55,34 +55,15 @@ local white_fg = '#b8b894'
 local black_fg = '#282c34'
 local bg = '#504945'
 
--- Filename Color
-local file_bg = purple
-local file_fg = black_fg
---local file_gui = 'bold'
-api.nvim_command('hi File guibg='..file_bg..' guifg='..file_fg)
-api.nvim_command('hi FileSeparator guifg='..file_bg)
 
--- Working directory Color
-local dir_bg = bg
-local dir_fg = white_fg
---local dir_gui = 'bold'
-api.nvim_command('hi Directory guibg='..dir_bg..' guifg='..dir_fg)
-api.nvim_command('hi DirSeparator guifg='..dir_bg)
-
--- FileType Color
-local filetype_bg = 'None'
-local filetype_fg = purple
---local filetype_gui = 'bold'
-api.nvim_command('hi Filetype guibg='..filetype_bg..' guifg='..filetype_fg)
-
--- row and column Color
-local line_bg = 'None'
-local line_fg = white_fg
-local line_gui = 'regular'
-api.nvim_command('hi Line guibg='..line_bg..' guifg='..line_fg)
+--Statusline colour
+local statusline_bg = 'None'
+local statusline_fg = white_fg
+-- local statusline_font = 'regular'
+api.nvim_command('hi Status_Line guibg='..statusline_bg..' guifg='..statusline_fg)
 
 --LSP Function Highlight Color
-api.nvim_command('hi StatuslineLSPFunc guibg='..line_bg..' guifg='..green)
+api.nvim_command('hi Statusline_LSP_Func guibg='..statusline_bg..' guifg='..green)
 
 --SET TABLINE COLOURS
 api.nvim_command('hi TabLineSel gui=Bold guibg=#8ec07c guifg=#292929')
@@ -95,7 +76,6 @@ api.nvim_command('hi TabLineFill guibg=None gui=None')
 local InactiveLine_bg = '#1c1c1c'
 local InactiveLine_fg = white_fg
 api.nvim_command('hi InActive guibg='..InactiveLine_bg..' guifg='..InactiveLine_fg)
-
 
 
 -- Redraw different colors for different mode
@@ -121,6 +101,30 @@ local RedrawColors = function(mode)
     api.nvim_command('hi ModeSeparator guifg='..red)
   end
 end
+
+--[[ -- Filename Color
+local file_bg = purple
+local file_fg = black_fg
+--local file_gui = 'bold'
+api.nvim_command('hi File guibg='..file_bg..' guifg='..file_fg)
+api.nvim_command('hi FileSeparator guifg='..file_bg) ]]
+
+--[[ -- Working directory Color
+local dir_bg = bg
+local dir_fg = white_fg
+--local dir_gui = 'bold'
+api.nvim_command('hi Directory guibg='..dir_bg..' guifg='..dir_fg)
+api.nvim_command('hi DirSeparator guifg='..dir_bg) ]]
+
+--[[ -- FileType Color
+local filetype_bg = 'None'
+local filetype_fg = purple
+--local filetype_gui = 'bold'
+api.nvim_command('hi Filetype guibg='..filetype_bg..' guifg='..filetype_fg) ]]
+
+
+
+
 ------------------------------------------------------------------------
 --                              Statusline                            --
 ------------------------------------------------------------------------
@@ -132,7 +136,7 @@ function M.activeLine()
   statusline = statusline.."%#ModeSeparator#"..blank
   statusline = statusline.."%#ModeSeparator#"..left_separator.."%#Mode# "..modes.current_mode[mode].." %#ModeSeparator#"..right_separator
   -- Component: Filetype and icons
-  statusline = statusline.."%#Line#"..bufname.get_buffer_name()
+  statusline = statusline.."%#Status_Line#"..bufname.get_buffer_name()
   statusline = statusline..buficon.get_file_icon()
 
   -- Component: errors and warnings -> requires ALE
@@ -152,11 +156,11 @@ function M.activeLine()
   statusline = statusline.."%="
 
   -- Component: LSP CURRENT FUCTION --> Requires LSP
-  statusline = statusline.."%#StatuslineLSPFunc# "..lsp.lsp_current_function()
+  statusline = statusline.."%#Statusline_LSP_Func# "..lsp.lsp_current_function()
 
   -- RIGHT SIDE INFO
   -- Component: Modified, Read-Only, Filesize, Row/Col
-  statusline = statusline.."%#Line#"..bufmod.is_buffer_modified()
+  statusline = statusline.."%#Status_Line#"..bufmod.is_buffer_modified()
   statusline = statusline..editable.editable()..filesize.get_file_size()..[[ʟ %l/%L c %c]]..blank
   api.nvim_command('set noruler') --disable line numbers in bottom right for our custom indicator as above
 
