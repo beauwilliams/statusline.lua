@@ -131,33 +131,33 @@ function M.activeLine()
   statusline = statusline.."%#ModeSeparator#"..left_separator.."%#Mode# "..modes.current_mode[mode].." %#ModeSeparator#"..right_separator
   -- Component: Filetype and icons
   statusline = statusline.."%#Line#"..bufname.getBufferName()
-   statusline = statusline..buficon.getFileIcon()
+  statusline = statusline..buficon.getFileIcon()
 
   -- Component: errors and warnings -> requires ALE
+  -- TODO--> [beauwilliams] --> IMPLEMENT A LUA VERSION OF BELOW VIMSCRIPT FUNCS
   statusline = statusline..vim.call('LinterStatus')
-  -- SUPPORT COC LATER, NEEDS TESTING WITH COC USERS FIRST
+  -- TODO--> SUPPORT COC LATER, NEEDS TESTING WITH COC USERS FIRST
   -- statusline = statusline..M.cocStatus()
 
   -- Component: git commit stats -> REQUIRES SIGNIFY
   statusline = statusline..signify.signify()
-  -- statusline = statusline..vim.call('GitStats')
 
 
   -- Component: git branch name -> requires FUGITIVE
   statusline = statusline..git_branch.branch()
-  -- statusline = statusline..vim.call('GetGitBranchName')
 
   -- Alignment to left
   statusline = statusline.."%="
 
   -- Component: LSP CURRENT FUCTION --> Requires LSP
-    statusline = statusline.."%#StatuslineLSPFunc# "..lsp.lspCurrentFunction()
+  statusline = statusline.."%#StatuslineLSPFunc# "..lsp.lspCurrentFunction()
 
-    -- RIGHT SIDE INFO
+  -- RIGHT SIDE INFO
   -- Component: Modified, Read-Only, Filesize, Row/Col
-    statusline = statusline.."%#Line#"..bufmod.isBufferModified()
-    statusline = statusline..vim.call('ReadOnly')..vim.call('FileSize')..[[ʟ %l/%L c %c]]..blank
-    api.nvim_command('set noruler') --disable line numbers in bottom right for our custom indicator as above
+  statusline = statusline.."%#Line#"..bufmod.isBufferModified()
+  -- TODO--> [beauwilliams] --> IMPLEMENT A LUA VERSION OF BELOW VIMSCRIPT FUNCS
+  statusline = statusline..vim.call('ReadOnly')..vim.call('FileSize')..[[ʟ %l/%L c %c]]..blank
+  api.nvim_command('set noruler') --disable line numbers in bottom right for our custom indicator as above
 
   return statusline
 end

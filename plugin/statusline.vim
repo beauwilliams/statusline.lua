@@ -28,18 +28,6 @@ endfunction
 set tabline=%!TabLine()
 
 
-"ANOTHER METHOD
-"function! SetStatusline() abort
-    "luafile ~/.config/nvim/lua/beauwilliams/statusline.lua
-"endfunction
-
- "Change statusline automatically
-"augroup Statusline
-  "autocmd!
-  "autocmd WinEnter,BufEnter * :call SetStatusline()
-  "autocmd WinLeave,BufLeave * setlocal statusline=
-"augroup END
-
 
 function! LinterStatus() abort "REQUIRES ALE
   try
@@ -107,6 +95,7 @@ function! FileSize() abort
     endif
 endfunction
 
+
 "FUNC: Read Only File
 function! ReadOnly() abort
   if &readonly || !&modifiable
@@ -116,93 +105,117 @@ function! ReadOnly() abort
   endif
 endfunction
 
-function! GitStats() abort "REQUIRES SIGNIFY
-  try
-    let [added, modified, removed] = sy#repo#get_stats()
-    let symbols = ['', '', 'ﰣ']
-    let stats = [added, removed, modified]  " reorder
-    let statline = ''
-
-    for i in range(3)
-      if stats[i] > 0
-        let statline .= printf(' %s %s ', symbols[i], stats[i])
-      endif
-    endfor
-
-    if !empty(statline)
-      let statline = printf(' %s', statline[:-2])
-    endif
-
-  return statline
-  catch
-    return ''
-  endtry
-endfunction
 
 
 
 
 
-"STOLEN FROM FUGITIVE SOURCE, SO I CAN CUSTOMISE THE OUTPUT
-" Section: Statusline
-" REQUIRES FUGITIVEStatuslineGitBranch
-function! GitBranchName(...) abort
-  try
-  let dir = s:Dir(bufnr(''))
-  if empty(dir)
-    return ''
-  endif
-  let status = ' ' "NOTE: This git branch icon adds NERDFONT dependency
-  let commit = s:DirCommitFile(@%)[1]
-  if len(commit)
-    let status .= ':' . commit[0:6]
-  endif
-  let status .= FugitiveHead(7, dir) "'('.FugitiveHead(7, dir).')'
-  return status
-  catch
-    return ''
-  endtry
-endfunction
+"BELOW IS ARCHIVED TODO: REMOVE LATER
+"
+"
+"ANOTHER METHOD TO SET STATUSLINE
+"function! SetStatusline() abort
+    "luafile ~/.config/nvim/lua/beauwilliams/statusline.lua
+"endfunction
 
-function! GetGitBranchName(...) abort
-  try
-    return GitBranchName()
-  catch
-    return ''
-  endtry
-endfunction
+ "Change statusline automatically
+"augroup Statusline
+  "autocmd!
+  "autocmd WinEnter,BufEnter * :call SetStatusline()
+  "autocmd WinLeave,BufLeave * setlocal statusline=
+"augroup END
 
-function! Head(...) abort
-  if empty(s:Dir())
-    return ''
-  endif
 
-  return Head(a:0 ? a:1 : 0)
-endfunction
+"
+"
+"
+" function! GitStats() abort "REQUIRES SIGNIFY
+"   try
+"     let [added, modified, removed] = sy#repo#get_stats()
+"     let symbols = ['', '', 'ﰣ']
+"     let stats = [added, removed, modified]  " reorder
+"     let statline = ''
 
-function! s:Dir(...) abort
-    try
-  return a:0 ? FugitiveGitDir(a:1) : FugitiveGitDir()
-    catch
-        return ''
-    endtry
-endfunction
+"     for i in range(3)
+"       if stats[i] > 0
+"         let statline .= printf(' %s %s ', symbols[i], stats[i])
+"       endif
+"     endfor
 
-function! s:DirCommitFile(path) abort
-  let vals = matchlist(s:Slash(a:path), '\c^fugitive:\%(//\)\=\(.\{-\}\)\%(//\|::\)\(\x\{40,\}\|[0-3]\)\(/.*\)\=$')
-  if empty(vals)
-    return ['', '', '']
-  endif
-  return vals[1:3]
-endfunction
+"     if !empty(statline)
+"       let statline = printf(' %s', statline[:-2])
+"     endif
 
-function! s:Slash(path) abort
-  if exists('+shellslash')
-    return tr(a:path, '\', '/')
-  else
-    return a:path
-  endif
-endfunction
+"   return statline
+"   catch
+"     return ''
+"   endtry
+" endfunction
+
+
+" "STOLEN FROM FUGITIVE SOURCE, SO I CAN CUSTOMISE THE OUTPUT
+" " Section: Statusline
+" " REQUIRES FUGITIVEStatuslineGitBranch
+" function! GitBranchName(...) abort
+"   try
+"   let dir = s:Dir(bufnr(''))
+"   if empty(dir)
+"     return ''
+"   endif
+"   let status = ' ' "NOTE: This git branch icon adds NERDFONT dependency
+"   let commit = s:DirCommitFile(@%)[1]
+"   if len(commit)
+"     let status .= ':' . commit[0:6]
+"   endif
+"   let status .= FugitiveHead(7, dir) "'('.FugitiveHead(7, dir).')'
+"   return status
+"   catch
+"     return ''
+"   endtry
+" endfunction
+
+" function! GetGitBranchName(...) abort
+"   try
+"     return GitBranchName()
+"   catch
+"     return ''
+"   endtry
+" endfunction
+
+" function! Head(...) abort
+"   if empty(s:Dir())
+"     return ''
+"   endif
+
+"   return Head(a:0 ? a:1 : 0)
+" endfunction
+
+" function! s:Dir(...) abort
+"     try
+"   return a:0 ? FugitiveGitDir(a:1) : FugitiveGitDir()
+"     catch
+"         return ''
+"     endtry
+" endfunction
+
+" function! s:DirCommitFile(path) abort
+"   let vals = matchlist(s:Slash(a:path), '\c^fugitive:\%(//\)\=\(.\{-\}\)\%(//\|::\)\(\x\{40,\}\|[0-3]\)\(/.*\)\=$')
+"   if empty(vals)
+"     return ['', '', '']
+"   endif
+"   return vals[1:3]
+" endfunction
+
+" function! s:Slash(path) abort
+"   if exists('+shellslash')
+"     return tr(a:path, '\', '/')
+"   else
+"     return a:path
+"   endif
+" endfunction
+
+
+
 
 
 
