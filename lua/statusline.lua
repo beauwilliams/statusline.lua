@@ -191,16 +191,6 @@ function M.getBufferName() --> IF We are in a buffer such as terminal or startif
   end
 end
 
-local function isModified() --> TODO: Remove the - icon when opening startify
-  local modifiedIndicator = [[%M ]]
-  --local modifiedIndicator = vim.fn.expand('%M') --> DOES NOT WORK RETS FILENAME
-  --if modifiedIndicator ~= ''  or '-' then
-    --print(modifiedIndicator)
-    --return ''
-  --end
-  return modifiedIndicator
-end
-
 function M.bufferIsModified()
   local file = M.getBufferName()
   if file == ' startify ' then return '' end -- exception check
@@ -211,7 +201,7 @@ end
 
 
 -- neoclide/coc.nvim
-local function cocStatus()
+local function M.cocStatus()
   local cocstatus = ''
   if vim.fn.exists('*coc#status') == 0 then return '' end
     cocstatus = utils.Call('coc#status', {})
@@ -264,7 +254,7 @@ function M.activeLine()
   -- Component: errors and warnings -> requires ALE
   statusline = statusline..vim.call('LinterStatus')
   -- SUPPORT COC LATER, NEEDS TESTING WITH COC USERS FIRST
-  -- statusline = statusline..cocStatus()
+  -- statusline = statusline..M.cocStatus()
 
   -- Component: git commit stats -> REQUIRES SIGNIFY
   statusline = statusline..M.signify()
