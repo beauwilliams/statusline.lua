@@ -131,8 +131,8 @@ function M.activeLine()
   statusline = statusline.."%#ModeSeparator#"..blank
   statusline = statusline.."%#ModeSeparator#"..left_separator.."%#Mode# "..modes.current_mode[mode].." %#ModeSeparator#"..right_separator
   -- Component: Filetype and icons
-  statusline = statusline.."%#Line#"..bufname.getBufferName()
-  statusline = statusline..buficon.getFileIcon()
+  statusline = statusline.."%#Line#"..bufname.get_buffer_name()
+  statusline = statusline..buficon.get_file_icon()
 
   -- Component: errors and warnings -> requires ALE
   -- TODO--> [beauwilliams] --> IMPLEMENT A LUA VERSION OF BELOW VIMSCRIPT FUNCS
@@ -151,11 +151,11 @@ function M.activeLine()
   statusline = statusline.."%="
 
   -- Component: LSP CURRENT FUCTION --> Requires LSP
-  statusline = statusline.."%#StatuslineLSPFunc# "..lsp.lspCurrentFunction()
+  statusline = statusline.."%#StatuslineLSPFunc# "..lsp.lsp_current_function()
 
   -- RIGHT SIDE INFO
   -- Component: Modified, Read-Only, Filesize, Row/Col
-  statusline = statusline.."%#Line#"..bufmod.isBufferModified()
+  statusline = statusline.."%#Line#"..bufmod.is_buffer_modified()
   -- TODO--> [beauwilliams] --> IMPLEMENT A LUA VERSION OF BELOW VIMSCRIPT FUNCS
   -- statusline = statusline..vim.call('ReadOnly')..vim.call('FileSize')..[[ʟ %l/%L c %c]]..blank
   statusline = statusline..editable.editable()..vim.call('FileSize')..[[ʟ %l/%L c %c]]..blank

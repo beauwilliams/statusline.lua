@@ -2,7 +2,7 @@ local M = {}
 local api = vim.api
 local icons = require 'tables._icons'
 local blank = ' '
-function M.getFileIcon()
+function M.get_file_icon()
   local file_name = api.nvim_buf_get_name(current_buf)
   if string.find(file_name, 'term://') ~= nil then
     icon = ' '..api.nvim_call_function('fnamemodify', {file_name, ":p:t"})
