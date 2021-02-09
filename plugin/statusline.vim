@@ -22,7 +22,7 @@ augroup Statusline
 augroup END
 
 function! TabLine()
-    return luaeval("require'statusline'.TabLine()")
+    return luaeval("require'tabline'.TabLine()")
 endfunction
 
 set tabline=%!TabLine()
