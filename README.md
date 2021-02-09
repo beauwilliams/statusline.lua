@@ -45,14 +45,15 @@ use 'beauwilliams/statusline.lua'
 
     - Signify
     - Ale
-    - Dev Icons
     *I plan to shed some dependencies later once we get Async working for the Git Status & Git Branch (leaving this statusline with a total of 2 dependencies)*
 
 ## Planned Improvements 😼
 
 - [ ] Completely move codebase to lua
 - [ ] Async everything
-- [ ] Shed Signify & Fugitive Dependencies
+- [ ] Shed Signify
+- [x] Shed Fugitive
+- [x] Shed Nvim-Webdev-Icons
 - [ ] Theme Support
 
 # This repo is in alpha stage and breaking changes may be made at any point
