@@ -1,4 +1,5 @@
 local git_branch
+local M = {}
 
 -- os specific path separator
 local sep = package.config:sub(1,1)
@@ -60,7 +61,7 @@ local function watch_head()
 end
 
 -- returns the git_branch value to be shown on statusline
-local function branch()
+function M.branch()
   if not git_branch or #git_branch == 0 then return '' end
     local icon =  ''
     return icon .. ' ' .. git_branch
@@ -69,7 +70,7 @@ end
 -- run watch head on load so branch is present when component is loaded
 watch_head()
 
-return branch()
+return M
 
 
 
