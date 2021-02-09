@@ -192,11 +192,12 @@ local function getBufferName() --> IF We are in a buffer such as terminal or sta
 end
 
 local function bufferIsModified() --> TODO: Remove the - icon when opening startify --> DONE
-  local filetype = vim.bo.ft --> Get vim filetype using nvim api
-  if filetype == 'startify' then return end
+  local file = getBufferName()
+  if file == nil or '' or 'startify' then return 'test' end
   local modifiedIndicator = [[%M ]]
-  if modifiedIndicator == nil then return '' end --exception check
-  return modifiedIndicator
+  if modifiedIndicator == nil then return 'test' end --exception check
+  -- return modifiedIndicator
+  return 'test'
 end
 
 
