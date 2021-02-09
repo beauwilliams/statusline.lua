@@ -177,8 +177,8 @@ end
 
 
 local function getBufferName() --> IF We are in a buffer such as terminal or startify with no filename just display the buffer 'type' i.e "startify"
-  -- local filename = vim.fn.expand('%f') -- api.nvim_call_function('expand', {'%f'})
-  local filename = [[%t %m]] --TODO--> [beauwilliams] --> TEST
+  local filename = vim.fn.expand('%f') -- api.nvim_call_function('expand', {'%f'})
+  -- local filename = [[%f]] --TODO--> [beauwilliams] --> TEST
   local filetype = vim.bo.ft --> Get vim filetype using nvim api
   if filename ~= '' then --> IF filetype empty i.e in a terminal buffer etc, return name of buffer (filetype)
     return blank..filename..blank
@@ -191,13 +191,12 @@ local function getBufferName() --> IF We are in a buffer such as terminal or sta
   end
 end
 
-local function bufferIsModified() --> TODO: Remove the - icon when opening startify --> DONE
+local function bufferIsModified()
   local file = getBufferName()
-  if file == nil or '' or 'startify' then return 'test' end
+  if file == ' startify ' then return '' end -- exception check
   local modifiedIndicator = [[%M ]]
-  if modifiedIndicator == nil then return 'test' end --exception check
-  -- return modifiedIndicator
-  return 'test'
+  if modifiedIndicator == nil then return '' end --exception check
+  return modifiedIndicator
 end
 
 
