@@ -12,14 +12,13 @@
 
 -- TODO--> [beauwilliams] --> Refactor sections into their own files
 local api = vim.api
-local icons = require 'tables._icons'
 local modes = require 'tables._modes'
-local utils = require '_utils'
 local git_branch = require 'sections._git_branch'
 local lsp = require 'sections._lsp'
 local signify = require 'sections._signify'
 local bufmod = require 'sections._bufmodified'
 local bufname = require 'sections._bufname'
+local buficon = require 'sections._buficon'
 local M = {}
 
 
@@ -120,32 +119,6 @@ local RedrawColors = function(mode)
     api.nvim_command('hi ModeSeparator guifg='..red)
   end
 end
-
-------------------------------------------------------------------------
---                              Functions                             --
-------------------------------------------------------------------------
---
-function M.getFileIcon()
-  local file_name = api.nvim_buf_get_name(current_buf)
-  if string.find(file_name, 'term://') ~= nil then
-    icon = ' '..api.nvim_call_function('fnamemodify', {file_name, ":p:t"})
-  end
-  file_name = api.nvim_call_function('fnamemodify', {file_name, ":p:t"})
-  if file_name == '' then
-    icon = ''
-    return icon
-  end
-  local icon = icons.deviconTable[file_name]
-  if icon ~= nil then
-    return icon..blank
-  else
-    return ''
-  end
-end
-
-
-
-
 ------------------------------------------------------------------------
 --                              Statusline                            --
 ------------------------------------------------------------------------
@@ -198,7 +171,7 @@ end
 -- INACTIVE FUNCTION DISPLAY
 function M.inActiveLine()
   local file_name = api.nvim_call_function('expand', {'%F'})
-  return blank..file_name..blank..M.getFileIcon()
+  return blank..file_name..blank..buficon.getFileIcon()
 end
 
 
