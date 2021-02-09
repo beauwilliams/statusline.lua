@@ -131,7 +131,7 @@ function M.activeLine()
   statusline = statusline.."%#ModeSeparator#"..left_separator.."%#Mode# "..modes.current_mode[mode].." %#ModeSeparator#"..right_separator
   -- Component: Filetype and icons
   statusline = statusline.."%#Line#"..bufname.getBufferName()
-   statusline = statusline..M.getFileIcon()
+   statusline = statusline..buficon.getFileIcon()
 
   -- Component: errors and warnings -> requires ALE
   statusline = statusline..vim.call('LinterStatus')
