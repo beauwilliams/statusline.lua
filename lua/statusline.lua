@@ -19,6 +19,7 @@ local signify = require 'sections._signify'
 local bufmod = require 'sections._bufmodified'
 local bufname = require 'sections._bufname'
 local buficon = require 'sections._buficon'
+local editable = require 'sections._bufeditable'
 local M = {}
 
 
@@ -156,7 +157,8 @@ function M.activeLine()
   -- Component: Modified, Read-Only, Filesize, Row/Col
   statusline = statusline.."%#Line#"..bufmod.isBufferModified()
   -- TODO--> [beauwilliams] --> IMPLEMENT A LUA VERSION OF BELOW VIMSCRIPT FUNCS
-  statusline = statusline..vim.call('ReadOnly')..vim.call('FileSize')..[[ʟ %l/%L c %c]]..blank
+  -- statusline = statusline..vim.call('ReadOnly')..vim.call('FileSize')..[[ʟ %l/%L c %c]]..blank
+  statusline = statusline..editable.editable()..vim.call('FileSize')..[[ʟ %l/%L c %c]]..blank
   api.nvim_command('set noruler') --disable line numbers in bottom right for our custom indicator as above
 
   return statusline
