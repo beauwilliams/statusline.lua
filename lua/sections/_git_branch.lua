@@ -77,4 +77,15 @@ return M
 
 
 
-
+---ARCHIVE --> A lot shorter but has async issues
+--function M.getGitBranch() --> NOTE: THIS FN HAS AN ASYNC ISSUE AND NEEDS TO BE DEALT WITH LATER
+--local branch = vim.fn.systemlist('cd ' .. vim.fn.expand('%:p:h:S') .. ' 2>/dev/null && git status --porcelain -b 2>/dev/null')[1]
+--local branch = vim.fn.systemlist('cd ' .. vim.fn.expand('%:p:h:S') .. ' 2>/dev/null && git rev-parse --abbrev-ref HEAD')[1] --> Same async issue
+--local data = vim.b.git_branch
+      --if not branch or #branch == 0 then
+        -- return ''
+      --end
+      --branch = branch:gsub([[^## No commits yet on (%w+)$]], '%1')
+      --branch = branch:gsub([[^##%s+(%w+).*$]], '%1')
+--return branch
+--end
