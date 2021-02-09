@@ -2,6 +2,10 @@
 
 ![screencast](https://i.ibb.co/DM0pykL/op.gif)
 
+## [BONUS] tabline.lua
+
+![screenshot](https://i.ibb.co/Cw6Jzxh/Screen-Shot-2021-02-09-at-2-19-10-pm.png)
+
 ***A tidy statusline for neovim written in lua featuring***
 
 🔋 Batteries Included. No configuration neccessary
