@@ -201,6 +201,14 @@ local function isModified() --> TODO: Remove the - icon when opening startify
   return modifiedIndicator
 end
 
+function M.bufferIsModified()
+  local file = M.getBufferName()
+  if file == ' startify ' then return '' end -- exception check
+  local modifiedIndicator = [[%M ]]
+  if modifiedIndicator == nil then return '' end --exception check
+  return modifiedIndicator
+end
+
 
 -- neoclide/coc.nvim
 local function cocStatus()
@@ -278,7 +286,7 @@ function M.activeLine()
 
     -- RIGHT SIDE INFO
   -- Component: Modified, Read-Only, Filesize, Row/Col
-    statusline = statusline.."%#Line#"..vim.call('FileIsModified') --."%#Line#" ..[[%M]].
+    statusline = statusline.."%#Line#"..M.bufferIsModified()
     statusline = statusline..vim.call('ReadOnly')..vim.call('FileSize')..[[ʟ %l/%L c %c]]..blank
     api.nvim_command('set noruler') --disable line numbers in bottom right for our custom indicator as above
 
