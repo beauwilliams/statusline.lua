@@ -173,7 +173,7 @@ end
 -- INACTIVE FUNCTION DISPLAY
 function M.inActiveLine()
   local file_name = api.nvim_call_function('expand', {'%F'})
-  return blank..file_name..blank..buficon.getFileIcon()
+  return blank..file_name..blank..buficon.get_file_icon()
 end
 
 
