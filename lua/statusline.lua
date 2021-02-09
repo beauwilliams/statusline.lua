@@ -10,7 +10,7 @@
 --                             Variables                              --
 ------------------------------------------------------------------------
 
--- TODO--> [beauwilliams] --> Refactor sections into their own files
+-- TODO--> [beauwilliams] --> Better handling of data
 local api = vim.api
 local modes = require 'tables._modes'
 local git_branch = require 'sections._git_branch'
@@ -79,7 +79,7 @@ api.nvim_command('hi InActive guibg='..InactiveLine_bg..' guifg='..InactiveLine_
 
 
 -- Redraw different colors for different mode
-local RedrawColors = function(mode)
+local set_mode_colours = function(mode)
   if mode == 'n' then
     api.nvim_command('hi Mode guibg='..green..' guifg='..black_fg..' gui=bold')
     api.nvim_command('hi ModeSeparator guifg='..green)
@@ -110,7 +110,7 @@ function M.activeLine()
   local statusline = ""
   -- Component: Mode
   local mode = api.nvim_get_mode()['mode']
-  RedrawColors(mode)
+  set_mode_colours(mode)
   statusline = statusline.."%#ModeSeparator#"..blank
   statusline = statusline.."%#ModeSeparator#"..left_separator.."%#Mode# "..modes.current_mode[mode].." %#ModeSeparator#"..right_separator
   -- Component: Filetype and icons

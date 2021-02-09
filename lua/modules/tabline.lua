@@ -58,7 +58,7 @@ function M.TabLine()
   tabline = tabline.."%="
   -- Component: Working Directory
   local dir = api.nvim_call_function('getcwd', {})
-  tabline = tabline.."%#DirSeparator#"..left_separator.."%#Directory# "..TrimmedDirectory(dir).." %#DirSeparator#"..right_separator
+  tabline = tabline.."%#TabLineSeparator#"..left_separator.."%#Tabline# "..TrimmedDirectory(dir).."%#TabLineSeparator#"..right_separator
   tabline = tabline..blank
   return tabline
 end
