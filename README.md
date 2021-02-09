@@ -20,7 +20,7 @@
 
 👌 Clean Ruler
 
-⚙️  File Icon Support [Dev Icons]
+⚙️  File Icon Support [Nerd Font]
 
 🙌 Snipped File Paths
 
@@ -34,15 +34,10 @@
 ### [vim-plug](https://github.com/junegunn/vim-plug)
 ```vim
 Plug 'beauwilliams/statusline.lua'
-" If you want to have icons in your statusline choose one of these
-Plug 'kyazdani42/nvim-web-devicons'
 ```
 ### [packer.nvim](https://github.com/wbthomason/packer.nvim)
 ```lua
-use {
-'beauwilliams/statusline.lua',
-requires = {'kyazdani42/nvim-web-devicons', opt = true}
-}
+use 'beauwilliams/statusline.lua'
 ```
 
 
