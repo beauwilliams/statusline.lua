@@ -2,7 +2,7 @@
 
 ![screencast](https://i.ibb.co/DM0pykL/op.gif)
 
-## tabline.lua [BONUS] 
+## tabline.lua [BONUS]
 
 ![screenshot](https://i.ibb.co/zhqf9nK/Screen-Shot-2021-02-09-at-2-19-10-pm.png)
 
@@ -18,7 +18,7 @@
 
 ❗️ Linter Status [Ale]
 
-🔦 LSP Current Function [builtinlsp.current_function] --> Requires adding `lsp_status.on_attach(client)` on attach for now :)
+🔦 LSP Current Function [builtinlsp.current_function] --> Requires `require('lsp-status').on_attach(client)`
 
 ❓ File Modified Status
 
