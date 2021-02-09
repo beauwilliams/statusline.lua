@@ -1,3 +1,4 @@
+
 --[[
    _____  ______    ___   ______   __  __   _____    __     ____    _   __    ______
   / ___/ /_  __/   /   | /_  __/  / / / /  / ___/   / /    /  _/   / | / /   / ____/
@@ -143,7 +144,7 @@ local TrimmedDirectory = function(dir)
   return dir
 end
 
-local function getFileIcon()
+function M.getFileIcon()
   local file_name = api.nvim_buf_get_name(current_buf)
   if string.find(file_name, 'term://') ~= nil then
     icon = ' '..api.nvim_call_function('fnamemodify', {file_name, ":p:t"})
@@ -162,7 +163,7 @@ local function getFileIcon()
 end
 
 
-local function getGitBranch() --> NOTE: THIS FN HAS AN ASYNC ISSUE AND NEEDS TO BE DEALT WITH LATER
+function M.getGitBranch() --> NOTE: THIS FN HAS AN ASYNC ISSUE AND NEEDS TO BE DEALT WITH LATER
 local branch = vim.fn.systemlist('cd ' .. vim.fn.expand('%:p:h:S') .. ' 2>/dev/null && git status --porcelain -b 2>/dev/null')[1]
 --local branch = vim.fn.systemlist('cd ' .. vim.fn.expand('%:p:h:S') .. ' 2>/dev/null && git rev-parse --abbrev-ref HEAD')[1] --> Same async issue
 --local data = vim.b.git_branch
@@ -176,9 +177,8 @@ end
 
 
 
-local function getBufferName() --> IF We are in a buffer such as terminal or startify with no filename just display the buffer 'type' i.e "startify"
+function M.getBufferName() --> IF We are in a buffer such as terminal or startify with no filename just display the buffer 'type' i.e "startify"
   local filename = vim.fn.expand('%f') -- api.nvim_call_function('expand', {'%f'})
-  -- local filename = [[%f]] --TODO--> [beauwilliams] --> TEST
   local filetype = vim.bo.ft --> Get vim filetype using nvim api
   if filename ~= '' then --> IF filetype empty i.e in a terminal buffer etc, return name of buffer (filetype)
     return blank..filename..blank
@@ -191,11 +191,13 @@ local function getBufferName() --> IF We are in a buffer such as terminal or sta
   end
 end
 
-local function bufferIsModified()
-  local file = getBufferName()
-  if file == ' startify ' then return '' end -- exception check
+local function isModified() --> TODO: Remove the - icon when opening startify
   local modifiedIndicator = [[%M ]]
-  if modifiedIndicator == nil then return '' end --exception check
+  --local modifiedIndicator = vim.fn.expand('%M') --> DOES NOT WORK RETS FILENAME
+  --if modifiedIndicator ~= ''  or '-' then
+    --print(modifiedIndicator)
+    --return ''
+  --end
   return modifiedIndicator
 end
 
@@ -208,7 +210,7 @@ local function cocStatus()
   return cocstatus
 end
 
-local function signify()
+function M.signify()
    if vim.fn.exists('*sy#repo#get_stats') == 0 then return '' end
    local added, modified, removed = unpack(vim.fn['sy#repo#get_stats']())
    if added == -1 then return '' end
@@ -236,13 +238,6 @@ local function signify()
    end
 end
 
-local function lspCurrentFunction()
-  local lsp_function = vim.b.lsp_current_function
-  if lsp_function == nil then return '' end
-  return lsp_function
-end
-
-
 
 ------------------------------------------------------------------------
 --                              Statusline                            --
@@ -255,8 +250,8 @@ function M.activeLine()
   statusline = statusline.."%#ModeSeparator#"..blank
   statusline = statusline.."%#ModeSeparator#"..left_separator.."%#Mode# "..current_mode[mode].." %#ModeSeparator#"..right_separator
   -- Component: Filetype and icons
-  statusline = statusline.."%#Line#"..getBufferName()
-  statusline = statusline..getFileIcon()
+  statusline = statusline.."%#Line#"..M.getBufferName()
+   statusline = statusline..M.getFileIcon()
 
   -- Component: errors and warnings -> requires ALE
   statusline = statusline..vim.call('LinterStatus')
@@ -264,7 +259,7 @@ function M.activeLine()
   -- statusline = statusline..cocStatus()
 
   -- Component: git commit stats -> REQUIRES SIGNIFY
-  statusline = statusline..signify()
+  statusline = statusline..M.signify()
   -- statusline = statusline..vim.call('GitStats')
 
 
@@ -272,23 +267,20 @@ function M.activeLine()
   statusline = statusline..git_branch
   -- statusline = statusline..vim.call('GetGitBranchName')
 
-    -- Component: LSP CURRENT FUCTION --> Requires LSP --> FIXME --> [beauwilliams]--> NOT WORKING.
+  -- Alignment to left
+  statusline = statusline.."%="
+
+  -- Component: LSP CURRENT FUCTION --> Requires LSP
   local lsp_function = vim.b.lsp_current_function
   if lsp_function ~= nil then
     statusline = statusline.."%#StatuslineLSPFunc# "..lsp_function..blank
   end
 
-
-  -- Alignment to left
-  statusline = statusline.."%="
-
-
-  -- RIGHT SIDE INFO
+    -- RIGHT SIDE INFO
   -- Component: Modified, Read-Only, Filesize, Row/Col
-  statusline = statusline.."%#Line#"..bufferIsModified()
-  -- statusline = statusline.."%#Line#"..vim.call('FileIsModified') --."%#Line#" ..[[%M]].
-  statusline = statusline..vim.call('ReadOnly')..vim.call('FileSize')..[[ʟ %l/%L c %c]]..blank
-  api.nvim_command('set noruler') --disable line numbers in bottom right for our custom indicator as above
+    statusline = statusline.."%#Line#"..vim.call('FileIsModified') --."%#Line#" ..[[%M]].
+    statusline = statusline..vim.call('ReadOnly')..vim.call('FileSize')..[[ʟ %l/%L c %c]]..blank
+    api.nvim_command('set noruler') --disable line numbers in bottom right for our custom indicator as above
 
   return statusline
 end
@@ -306,8 +298,7 @@ api.nvim_command('hi InActive guibg='..InactiveLine_bg..' guifg='..InactiveLine_
 -- INACTIVE FUNCTION DISPLAY
 function M.inActiveLine()
   local file_name = api.nvim_call_function('expand', {'%F'})
-  return blank..file_name..getFileIcon()
-
+  return blank..file_name..blank..M.getFileIcon()
 end
 
 
