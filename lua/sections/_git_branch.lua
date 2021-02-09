@@ -1,4 +1,5 @@
 local git_branch
+local M = {}
 
 -- os specific path separator
 local sep = package.config:sub(1,1)
@@ -60,7 +61,7 @@ local function watch_head()
 end
 
 -- returns the git_branch value to be shown on statusline
-local function branch()
+function M.branch()
   if not git_branch or #git_branch == 0 then return '' end
     local icon =  ''
     return icon .. ' ' .. git_branch
@@ -69,11 +70,22 @@ end
 -- run watch head on load so branch is present when component is loaded
 watch_head()
 
-return branch()
+return M
 
 
 
 
 
 
-
+---ARCHIVE --> A lot shorter but has async issues
+--function M.getGitBranch() --> NOTE: THIS FN HAS AN ASYNC ISSUE AND NEEDS TO BE DEALT WITH LATER
+--local branch = vim.fn.systemlist('cd ' .. vim.fn.expand('%:p:h:S') .. ' 2>/dev/null && git status --porcelain -b 2>/dev/null')[1]
+--local branch = vim.fn.systemlist('cd ' .. vim.fn.expand('%:p:h:S') .. ' 2>/dev/null && git rev-parse --abbrev-ref HEAD')[1] --> Same async issue
+--local data = vim.b.git_branch
+      --if not branch or #branch == 0 then
+        -- return ''
+      --end
+      --branch = branch:gsub([[^## No commits yet on (%w+)$]], '%1')
+      --branch = branch:gsub([[^##%s+(%w+).*$]], '%1')
+--return branch
+--end

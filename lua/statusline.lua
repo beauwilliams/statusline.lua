@@ -1,3 +1,4 @@
+
 --[[
    _____  ______    ___   ______   __  __   _____    __     ____    _   __    ______
   / ___/ /_  __/   /   | /_  __/  / / / /  / ___/   / /    /  _/   / | / /   / ____/
@@ -9,23 +10,17 @@
 --                             Variables                              --
 ------------------------------------------------------------------------
 
+-- TODO--> [beauwilliams] --> Refactor sections into their own files
 local api = vim.api
-local icons = require 'devicon'
-local utils = require 'utils'
-local git_branch = require 'sections.git_branch'
+local modes = require 'tables._modes'
+local git_branch = require 'sections._git_branch'
+local lsp = require 'sections._lsp'
+local signify = require 'sections._signify'
+local bufmod = require 'sections._bufmodified'
+local bufname = require 'sections._bufname'
+local buficon = require 'sections._buficon'
 local M = {}
 
--- Different colors for mode
-local purple = '#BF616A' --#B48EAD
-local blue = '#83a598' --#81A1C1
-local yellow = '#fabd2f' --#EBCB8B
-local green = '#8ec07c' --#A3BE8C
-local red = '#fb4934' --#BF616A
-
--- fg and bg
-local white_fg = '#b8b894'
-local black_fg = '#282c34'
-local bg = '#504945'
 
 -- Separators
 local left_separator = ''
@@ -46,36 +41,17 @@ local blank = ' '
 --                             Colours                                --
 ------------------------------------------------------------------------
 
--- Mode Prompt Table
-local current_mode = setmetatable({
-      ['n'] = 'N',
-      ['no'] = 'N·Operator Pending',
-      ['v'] = 'V',
-      ['V'] = 'V',
-      ['^V'] = 'V',
-      ['s'] = 'Select',
-      ['S'] = 'S·Line',
-      ['^S'] = 'S·Block',
-      ['i'] = 'I',
-      ['ic'] = 'I',
-      ['ix'] = 'I',
-      ['R'] = 'Replace',
-      ['Rv'] = 'V·Replace',
-      ['c'] = 'C',
-      ['cv'] = 'Vim Ex',
-      ['ce'] = 'Ex',
-      ['r'] = 'Prompt',
-      ['rm'] = 'More',
-      ['r?'] = 'Confirm',
-      ['!'] = 'Shell',
-      ['t'] = 'T'
-    }, {
-      -- fix weird issues
-      __index = function(_, _)
-        return 'V·Block'
-      end
-    }
-)
+-- Different colors for mode
+local purple = '#BF616A' --#B48EAD
+local blue = '#83a598' --#81A1C1
+local yellow = '#fabd2f' --#EBCB8B
+local green = '#8ec07c' --#A3BE8C
+local red = '#fb4934' --#BF616A
+
+-- fg and bg
+local white_fg = '#b8b894'
+local black_fg = '#282c34'
+local bg = '#504945'
 
 -- Filename Color
 local file_bg = purple
@@ -106,6 +82,20 @@ api.nvim_command('hi Line guibg='..line_bg..' guifg='..line_fg)
 --LSP Function Highlight Color
 api.nvim_command('hi StatuslineLSPFunc guibg='..line_bg..' guifg='..green)
 
+--SET TABLINE COLOURS
+api.nvim_command('hi TabLineSel gui=Bold guibg=#8ec07c guifg=#292929')
+api.nvim_command('hi TabLineSelSeparator gui=bold guifg=#8ec07c')
+api.nvim_command('hi TabLine guibg=#504945 guifg=#b8b894 gui=None')
+api.nvim_command('hi TabLineSeparator guifg=#504945')
+api.nvim_command('hi TabLineFill guibg=None gui=None')
+
+-- INACTIVE BUFFER Colours
+local InactiveLine_bg = '#1c1c1c'
+local InactiveLine_fg = white_fg
+api.nvim_command('hi InActive guibg='..InactiveLine_bg..' guifg='..InactiveLine_fg)
+
+
+
 -- Redraw different colors for different mode
 local RedrawColors = function(mode)
   if mode == 'n' then
@@ -129,115 +119,6 @@ local RedrawColors = function(mode)
     api.nvim_command('hi ModeSeparator guifg='..red)
   end
 end
-
-------------------------------------------------------------------------
---                              Functions                             --
-------------------------------------------------------------------------
-local TrimmedDirectory = function(dir)
-  local home = os.getenv("HOME")
-  local _, index = string.find(dir, home, 1)
-  if index ~= nil and index ~= string.len(dir) then
-    -- TODO Trimmed Home Directory
-    return string.gsub(dir, home, '~')
-  end
-  return dir
-end
-
-local function getFileIcon()
-  local file_name = api.nvim_buf_get_name(current_buf)
-  if string.find(file_name, 'term://') ~= nil then
-    icon = ' '..api.nvim_call_function('fnamemodify', {file_name, ":p:t"})
-  end
-  file_name = api.nvim_call_function('fnamemodify', {file_name, ":p:t"})
-  if file_name == '' then
-    icon = ''
-    return icon
-  end
-  local icon = icons.deviconTable[file_name]
-  if icon ~= nil then
-    return icon..blank
-  else
-    return ''
-  end
-end
-
-
-local function getGitBranch() --> NOTE: THIS FN HAS AN ASYNC ISSUE AND NEEDS TO BE DEALT WITH LATER
-local branch = vim.fn.systemlist('cd ' .. vim.fn.expand('%:p:h:S') .. ' 2>/dev/null && git status --porcelain -b 2>/dev/null')[1]
---local branch = vim.fn.systemlist('cd ' .. vim.fn.expand('%:p:h:S') .. ' 2>/dev/null && git rev-parse --abbrev-ref HEAD')[1] --> Same async issue
---local data = vim.b.git_branch
-      if not branch or #branch == 0 then
-         return ''
-      end
-      branch = branch:gsub([[^## No commits yet on (%w+)$]], '%1')
-      branch = branch:gsub([[^##%s+(%w+).*$]], '%1')
-return branch
-end
-
-
-
-local function getBufferName() --> IF We are in a buffer such as terminal or startify with no filename just display the buffer 'type' i.e "startify"
-  local filename = vim.fn.expand('%f') -- api.nvim_call_function('expand', {'%f'})
-  local filetype = vim.bo.ft --> Get vim filetype using nvim api
-  if filename ~= '' then --> IF filetype empty i.e in a terminal buffer etc, return name of buffer (filetype)
-    return blank..filename..blank
-  else
-      if filetype ~= '' then
-          return blank..filetype..blank
-      else
-        return '' --> AFAIK buffers tested have types but just incase.
-      end
-  end
-end
-
-local function isModified() --> TODO: Remove the - icon when opening startify
-  local modifiedIndicator = [[%M ]]
-  --local modifiedIndicator = vim.fn.expand('%M') --> DOES NOT WORK RETS FILENAME
-  --if modifiedIndicator ~= ''  or '-' then
-    --print(modifiedIndicator)
-    --return ''
-  --end
-  return modifiedIndicator
-end
-
-
--- neoclide/coc.nvim
-local function cocStatus()
-  local cocstatus = ''
-  if vim.fn.exists('*coc#status') == 0 then return '' end
-    cocstatus = utils.Call('coc#status', {})
-  return cocstatus
-end
-
-local function signify()
-   if vim.fn.exists('*sy#repo#get_stats') == 0 then return '' end
-   local added, modified, removed = unpack(vim.fn['sy#repo#get_stats']())
-   if added == -1 then return '' end
-   local symbols = {
-     '+',
-     '-',
-     '~',
-   }
-   local result = {}
-   local data = {
-    added,
-    removed,
-    modified,
-   }
-   for range=1,3 do
-     if data[range] ~= nil and data[range] > 0
-       then table.insert(result,symbols[range]..data[range]..blank)
-     end
-   end
-
-   if result[1] ~= nil then
-       return table.concat(result, '')
-   else
-       return ''
-   end
-end
-
-
 ------------------------------------------------------------------------
 --                              Statusline                            --
 ------------------------------------------------------------------------
@@ -247,37 +128,34 @@ function M.activeLine()
   local mode = api.nvim_get_mode()['mode']
   RedrawColors(mode)
   statusline = statusline.."%#ModeSeparator#"..blank
-  statusline = statusline.."%#ModeSeparator#"..left_separator.."%#Mode# "..current_mode[mode].." %#ModeSeparator#"..right_separator
+  statusline = statusline.."%#ModeSeparator#"..left_separator.."%#Mode# "..modes.current_mode[mode].." %#ModeSeparator#"..right_separator
   -- Component: Filetype and icons
-  statusline = statusline.."%#Line#"..getBufferName()
-   statusline = statusline..getFileIcon()
+  statusline = statusline.."%#Line#"..bufname.getBufferName()
+   statusline = statusline..buficon.getFileIcon()
 
   -- Component: errors and warnings -> requires ALE
   statusline = statusline..vim.call('LinterStatus')
   -- SUPPORT COC LATER, NEEDS TESTING WITH COC USERS FIRST
-  -- statusline = statusline..cocStatus()
+  -- statusline = statusline..M.cocStatus()
 
   -- Component: git commit stats -> REQUIRES SIGNIFY
-  statusline = statusline..signify()
+  statusline = statusline..signify.signify()
   -- statusline = statusline..vim.call('GitStats')
 
 
   -- Component: git branch name -> requires FUGITIVE
-  statusline = statusline..git_branch
+  statusline = statusline..git_branch.branch()
   -- statusline = statusline..vim.call('GetGitBranchName')
 
   -- Alignment to left
   statusline = statusline.."%="
 
   -- Component: LSP CURRENT FUCTION --> Requires LSP
-  local lsp_function = vim.b.lsp_current_function
-  if lsp_function ~= nil then
-    statusline = statusline.."%#StatuslineLSPFunc# "..lsp_function..blank
-  end
+    statusline = statusline.."%#StatuslineLSPFunc# "..lsp.lspCurrentFunction()
 
     -- RIGHT SIDE INFO
   -- Component: Modified, Read-Only, Filesize, Row/Col
-    statusline = statusline.."%#Line#"..vim.call('FileIsModified') --."%#Line#" ..[[%M]].
+    statusline = statusline.."%#Line#"..bufmod.isBufferModified()
     statusline = statusline..vim.call('ReadOnly')..vim.call('FileSize')..[[ʟ %l/%L c %c]]..blank
     api.nvim_command('set noruler') --disable line numbers in bottom right for our custom indicator as above
 
@@ -288,76 +166,13 @@ end
 ------------------------------------------------------------------------
 --                              Inactive                              --
 ------------------------------------------------------------------------
--- INACTIVE BUFFER Colours
-local InactiveLine_bg = '#1c1c1c'
-local InactiveLine_fg = white_fg
-api.nvim_command('hi InActive guibg='..InactiveLine_bg..' guifg='..InactiveLine_fg)
 
 
 -- INACTIVE FUNCTION DISPLAY
 function M.inActiveLine()
   local file_name = api.nvim_call_function('expand', {'%F'})
-  return blank..file_name..getFileIcon()
-
+  return blank..file_name..blank..buficon.getFileIcon()
 end
-
-
-------------------------------------------------------------------------
---                              TabLine                               --
-------------------------------------------------------------------------
-
-local getTabLabel = function(n)
-  local current_win = api.nvim_tabpage_get_win(n)
-  local current_buf = api.nvim_win_get_buf(current_win)
-  local file_name = api.nvim_buf_get_name(current_buf)
-  if string.find(file_name, 'term://') ~= nil then
-    return ' '..api.nvim_call_function('fnamemodify', {file_name, ":p:t"})
-  end
-  file_name = api.nvim_call_function('fnamemodify', {file_name, ":p:t"})
-  if file_name == '' then
-    return "No Name"
-  end
-  local icon = icons.deviconTable[file_name]
-  if icon ~= nil then
-    return icon..blank..file_name
-  end
-  return file_name
-end
-
-
-api.nvim_command('hi TabLineSel gui=Bold guibg=#8ec07c guifg=#292929')
-api.nvim_command('hi TabLineSelSeparator gui=bold guifg=#8ec07c')
-api.nvim_command('hi TabLine guibg=#504945 guifg=#b8b894 gui=None')
-api.nvim_command('hi TabLineSeparator guifg=#504945')
-api.nvim_command('hi TabLineFill guibg=None gui=None')
-
-
-
-function M.TabLine()
-  local tabline = ''
-  local tab_list = api.nvim_list_tabpages()
-  local current_tab = api.nvim_get_current_tabpage()
-  for _, val in ipairs(tab_list) do
-    local file_name = getTabLabel(val)
-    if val == current_tab then
-      tabline = tabline.."%#TabLineSelSeparator# "..left_separator
-      tabline = tabline.."%#TabLineSel# "..file_name
-      tabline = tabline.." %#TabLineSelSeparator#"..right_separator
-    else
-      tabline = tabline.."%#TabLineSeparator# "..left_separator
-      tabline = tabline.."%#TabLine# "..file_name
-      tabline = tabline.." %#TabLineSeparator#"..right_separator
-    end
-  end
-  tabline = tabline.."%="
-  -- Component: Working Directory
-  local dir = api.nvim_call_function('getcwd', {})
-  tabline = tabline.."%#DirSeparator#"..left_separator.."%#Directory# "..TrimmedDirectory(dir).." %#DirSeparator#"..right_separator
-  tabline = tabline..blank
-  return tabline
-end
-
-
 
 
 return M
