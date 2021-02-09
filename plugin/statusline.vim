@@ -61,14 +61,6 @@ function! LinterStatus() abort "REQUIRES ALE
 endfunction
 
 
-"FUNC: Send + if file modified else nothing
-function! FileIsModified() abort
-    if &modified
-      return '+ '
-    else
-      return ''
-  end
-endfunction
 
 
 
@@ -96,14 +88,6 @@ function! FileSize() abort
 endfunction
 
 
-"FUNC: Read Only File
-function! ReadOnly() abort
-  if &readonly || !&modifiable
-    return ' '
-  else
-    return ''
-  endif
-endfunction
 
 
 
@@ -112,6 +96,26 @@ endfunction
 
 "BELOW IS ARCHIVED TODO: REMOVE LATER
 "
+"
+" "FUNC: Send + if file modified else nothing
+" function! FileIsModified() abort
+"     if &modified
+"       return '+ '
+"     else
+"       return ''
+"   end
+" endfunction
+"
+"
+"" "FUNC: Read Only File
+" function! ReadOnly() abort
+"   if &readonly || !&modifiable
+"     return ' '
+"   else
+"     return ''
+"   endif
+" endfunction
+
 "
 "ANOTHER METHOD TO SET STATUSLINE
 "function! SetStatusline() abort
