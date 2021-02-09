@@ -49,6 +49,7 @@ use 'beauwilliams/statusline.lua'
 
     - Signify [Git Status]
     - Ale [Linter]
+    - LSP_Current_Func [require('lsp-status').on_attach(client)]
 
 ## Planned Improvements 😼
 
