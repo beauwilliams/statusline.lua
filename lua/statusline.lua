@@ -157,9 +157,6 @@ function M.activeLine()
   -- RIGHT SIDE INFO
   -- Component: Modified, Read-Only, Filesize, Row/Col
   statusline = statusline.."%#Line#"..bufmod.is_buffer_modified()
-  -- TODO--> [beauwilliams] --> IMPLEMENT A LUA VERSION OF BELOW VIMSCRIPT FUNCS
-  -- statusline = statusline..vim.call('ReadOnly')..vim.call('FileSize')..[[ʟ %l/%L c %c]]..blank
-  -- statusline = statusline..editable.editable()..vim.call('FileSize')..[[ʟ %l/%L c %c]]..blank
   statusline = statusline..editable.editable()..filesize.get_file_size()..[[ʟ %l/%L c %c]]..blank
   api.nvim_command('set noruler') --disable line numbers in bottom right for our custom indicator as above
 
