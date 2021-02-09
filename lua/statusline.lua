@@ -18,6 +18,8 @@ local utils = require '_utils'
 local git_branch = require 'sections._git_branch'
 local lsp = require 'sections._lsp'
 local signify = require 'sections._signify'
+local bufmod = require 'sections._bufmodified'
+local bufname = require 'sections._bufname'
 local M = {}
 
 
@@ -143,31 +145,6 @@ end
 
 
 
-function M.getBufferName() --> IF We are in a buffer such as terminal or startify with no filename just display the buffer 'type' i.e "startify"
-  local filename = vim.fn.expand('%f') -- api.nvim_call_function('expand', {'%f'})
-  local filetype = vim.bo.ft --> Get vim filetype using nvim api
-  if filename ~= '' then --> IF filetype empty i.e in a terminal buffer etc, return name of buffer (filetype)
-    return blank..filename..blank
-  else
-      if filetype ~= '' then
-          return blank..filetype..blank
-      else
-        return '' --> AFAIK buffers tested have types but just incase.
-      end
-  end
-end
-
-function M.isBufferModified()
-  local file = M.getBufferName()
-  if file == ' startify ' then return '' end -- exception check
-  local modifiedIndicator = [[%M ]]
-  if modifiedIndicator == nil then return '' end --exception check
-  return modifiedIndicator
-end
-
-
-
-
 
 ------------------------------------------------------------------------
 --                              Statusline                            --
@@ -180,7 +157,7 @@ function M.activeLine()
   statusline = statusline.."%#ModeSeparator#"..blank
   statusline = statusline.."%#ModeSeparator#"..left_separator.."%#Mode# "..modes.current_mode[mode].." %#ModeSeparator#"..right_separator
   -- Component: Filetype and icons
-  statusline = statusline.."%#Line#"..M.getBufferName()
+  statusline = statusline.."%#Line#"..bufname.getBufferName()
    statusline = statusline..M.getFileIcon()
 
   -- Component: errors and warnings -> requires ALE
@@ -205,7 +182,7 @@ function M.activeLine()
 
     -- RIGHT SIDE INFO
   -- Component: Modified, Read-Only, Filesize, Row/Col
-    statusline = statusline.."%#Line#"..M.isBufferModified()
+    statusline = statusline.."%#Line#"..bufmod.isBufferModified()
     statusline = statusline..vim.call('ReadOnly')..vim.call('FileSize')..[[ʟ %l/%L c %c]]..blank
     api.nvim_command('set noruler') --disable line numbers in bottom right for our custom indicator as above
 
