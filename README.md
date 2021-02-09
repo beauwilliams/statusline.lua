@@ -55,7 +55,6 @@ use 'beauwilliams/statusline.lua'
 
 - [ ] Completely move codebase to lua
 - [ ] Async everything
-- [ ] Shed Signify
 - [x] Shed Fugitive
 - [x] Shed Nvim-Webdev-Icons
 - [ ] Theme Support
