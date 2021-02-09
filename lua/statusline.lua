@@ -53,11 +53,11 @@ local red = '#fb4934' --#BF616A
 -- fg and bg
 local white_fg = '#b8b894'
 local black_fg = '#282c34'
-local bg = '#504945'
+local mybg = '#504945'
 
 
 --Statusline colour
-local statusline_bg = 'None'
+local statusline_bg = 'None' --> Set to none, use native bg
 local statusline_fg = white_fg
 -- local statusline_font = 'regular'
 api.nvim_command('hi Status_Line guibg='..statusline_bg..' guifg='..statusline_fg)
@@ -101,28 +101,6 @@ local RedrawColors = function(mode)
     api.nvim_command('hi ModeSeparator guifg='..red)
   end
 end
-
---[[ -- Filename Color
-local file_bg = purple
-local file_fg = black_fg
---local file_gui = 'bold'
-api.nvim_command('hi File guibg='..file_bg..' guifg='..file_fg)
-api.nvim_command('hi FileSeparator guifg='..file_bg) ]]
-
---[[ -- Working directory Color
-local dir_bg = bg
-local dir_fg = white_fg
---local dir_gui = 'bold'
-api.nvim_command('hi Directory guibg='..dir_bg..' guifg='..dir_fg)
-api.nvim_command('hi DirSeparator guifg='..dir_bg) ]]
-
---[[ -- FileType Color
-local filetype_bg = 'None'
-local filetype_fg = purple
---local filetype_gui = 'bold'
-api.nvim_command('hi Filetype guibg='..filetype_bg..' guifg='..filetype_fg) ]]
-
-
 
 
 ------------------------------------------------------------------------
