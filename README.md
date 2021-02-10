@@ -12,7 +12,7 @@
 
 🕴  Minimalist Mode Indicators
 
-🔥 .4ms Startup Time
+🔥 0.4ms Startup Time
 
 👁  Git Status [Signify]
 
