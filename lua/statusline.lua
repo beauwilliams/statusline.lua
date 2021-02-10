@@ -32,7 +32,7 @@ local left_separator = ''
 local right_separator = ''
 
 -- Blank Between Components
-local blank = ' '
+local space = ' '
 
 -- Icons (future use)
 -- local warningIcon = ''
@@ -114,8 +114,8 @@ function M.activeLine()
   -- Component: Mode
   local mode = api.nvim_get_mode()['mode']
   set_mode_colours(mode)
-  statusline = statusline.."%#ModeSeparator#"..blank
-  statusline = statusline.."%#ModeSeparator#"..left_separator.."%#Mode# "..modes.current_mode[mode].." %#ModeSeparator#"..right_separator..blank
+  statusline = statusline.."%#ModeSeparator#"..space
+  statusline = statusline.."%#ModeSeparator#"..left_separator.."%#Mode# "..modes.current_mode[mode].." %#ModeSeparator#"..right_separator..space
   -- Component: Filetype and icons
   statusline = statusline.."%#Status_Line#"..bufname.get_buffer_name()
   statusline = statusline..buficon.get_file_icon()
@@ -142,7 +142,7 @@ function M.activeLine()
   -- RIGHT SIDE INFO
   -- Component: Modified, Read-Only, Filesize, Row/Col
   statusline = statusline.."%#Status_Line#"..bufmod.is_buffer_modified()
-  statusline = statusline..editable.editable()..filesize.get_file_size()..[[ʟ %l/%L c %c]]..blank
+  statusline = statusline..editable.editable()..filesize.get_file_size()..[[ʟ %l/%L c %c]]..space
   cmd('set noruler') --disable line numbers in bottom right for our custom indicator as above
 
   return statusline
@@ -157,7 +157,7 @@ end
 -- INACTIVE FUNCTION DISPLAY
 function M.inActiveLine()
   local file_name = func('expand', {'%F'})
-  return blank..file_name..blank..buficon.get_file_icon()
+  return space..file_name..space..buficon.get_file_icon()
 end
 
 

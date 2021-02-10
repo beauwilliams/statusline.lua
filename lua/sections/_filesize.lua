@@ -1,6 +1,6 @@
 local M = {}
 local vim = vim
-local blank = ' '
+local space = ' '
 
 local function file_size(file)
   local size = vim.fn.getfsize(file)
@@ -16,7 +16,7 @@ local function file_size(file)
   else
     size = string.format('%d',size/1024/1024/1024) .. 'GB'
   end
-  return size..blank
+  return size..space
 end
 
 function M.get_file_size()

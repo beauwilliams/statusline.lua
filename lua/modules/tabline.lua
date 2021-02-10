@@ -8,7 +8,7 @@ local icons = require 'tables._icons'
 local left_separator = ''
 local right_separator = ''
 -- Blank Between Components
-local blank = ' '
+local space = ' '
 
 local TrimmedDirectory = function(dir)
   local home = os.getenv("HOME")
@@ -33,7 +33,7 @@ local getTabLabel = function(n)
   end
   local icon = icons.deviconTable[file_name]
   if icon ~= nil then
-    return icon..blank..file_name
+    return icon..space..file_name
   end
   return file_name
 end
@@ -59,7 +59,7 @@ function M.TabLine()
   -- Component: Working Directory
   local dir = api.nvim_call_function('getcwd', {})
   tabline = tabline.."%#TabLineSeparator#"..left_separator.."%#Tabline# "..TrimmedDirectory(dir).."%#TabLineSeparator#"..right_separator
-  tabline = tabline..blank
+  tabline = tabline..space
   return tabline
 end
 

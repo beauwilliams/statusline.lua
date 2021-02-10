@@ -1,7 +1,7 @@
 local M = {}
 local api = vim.api
 local icons = require 'tables._icons'
-local blank = ' '
+local space = ' '
 function M.get_file_icon()
   local file_name = api.nvim_buf_get_name(current_buf)
   if string.find(file_name, 'term://') ~= nil then
@@ -14,7 +14,7 @@ function M.get_file_icon()
   end
   local icon = icons.deviconTable[file_name]
   if icon ~= nil then
-    return icon..blank
+    return icon..space
   else
     return ''
   end

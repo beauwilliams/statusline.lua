@@ -1,5 +1,5 @@
 local M = {}
-local blank = ' '
+local space = ' '
 function M.signify()
    if vim.fn.exists('*sy#repo#get_stats') == 0 then return '' end
    local added, modified, removed = unpack(vim.fn['sy#repo#get_stats']())
@@ -17,7 +17,7 @@ function M.signify()
    }
    for range=1,3 do
      if data[range] ~= nil and data[range] > 0
-       then table.insert(result,symbols[range]..data[range]..blank)
+       then table.insert(result,symbols[range]..data[range]..space)
      end
    end
 
