@@ -5,10 +5,10 @@ function M.get_buffer_name() --> IF We are in a buffer such as terminal or start
 
   local filetype = vim.bo.ft --> Get vim filetype using nvim api
   if filename ~= '' then --> IF filetype empty i.e in a terminal buffer etc, return name of buffer (filetype)
-    return blank..filename..blank
+    return filename..blank
   else
       if filetype ~= '' then
-          return blank..filetype..blank
+          return filetype..blank
       else
         return '' --> AFAIK buffers tested have types but just incase.
       end
