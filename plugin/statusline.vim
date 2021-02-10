@@ -18,7 +18,7 @@ endfunction
 augroup Statusline
   autocmd!
   autocmd WinEnter,BufEnter * setlocal statusline=%!ActiveLine()
-  autocmd WinLeave,BufLeave * setlocal statusline=%!InactiveLine()
+  autocmd WinLeave,BufLeave * setlocal statusline=
 augroup END
 
 function! TabLine()
