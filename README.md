@@ -12,6 +12,8 @@
 
 🕴  Minimalist Mode Indicators
 
+🔥 0.4ms Startup Time
+
 👁  Git Status [Signify]
 
 🌴 Git Branch
