@@ -10,9 +10,9 @@
 
 🔋 Batteries Included. No configuration neccessary
 
-🔥 .4ms Startup Time
-
 🕴  Minimalist Mode Indicators
+
+🔥 .4ms Startup Time
 
 👁  Git Status [Signify]
 
