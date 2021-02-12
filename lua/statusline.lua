@@ -164,8 +164,7 @@ end
 ------------------------------------------------------------------------
 M.tabline_init = function()
     if M.tabline == true then
-    vim.o.tabline = tabline.tabline_init()
-    tabline.set_colours()
+    vim.o.tabline = tabline.init()
     end
 end
 

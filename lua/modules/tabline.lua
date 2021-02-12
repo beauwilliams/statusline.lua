@@ -11,9 +11,6 @@ local right_separator = ''
 -- Blank Between Components
 local space = ' '
 
-M.enabled = true
-
-
 local TrimmedDirectory = function(dir)
     local home = os.getenv("HOME")
     local _, index = string.find(dir, home, 1)
@@ -42,10 +39,17 @@ local getTabLabel = function(n)
     return file_name
 end
 
+local set_colours = function()
+--SET TABLINE COLOURS
+cmd('hi TabLineSel gui=Bold guibg=#8ec07c guifg=#292929')
+cmd('hi TabLineSelSeparator gui=bold guifg=#8ec07c')
+cmd('hi TabLine guibg=#504945 guifg=#b8b894 gui=None')
+cmd('hi TabLineSeparator guifg=#504945')
+cmd('hi TabLineFill guibg=None gui=None')
+end
 
-function M.tabline_init()
-    if M.enabled == false then return end
-
+function M.init()
+    set_colours()
     local tabline = ''
     local tab_list = api.nvim_list_tabpages()
     local current_tab = api.nvim_get_current_tabpage()
@@ -69,15 +73,6 @@ function M.tabline_init()
     return tabline
 end
 
-
-M.set_colours = function()
---SET TABLINE COLOURS
-cmd('hi TabLineSel gui=Bold guibg=#8ec07c guifg=#292929')
-cmd('hi TabLineSelSeparator gui=bold guifg=#8ec07c')
-cmd('hi TabLine guibg=#504945 guifg=#b8b894 gui=None')
-cmd('hi TabLineSeparator guifg=#504945')
-cmd('hi TabLineFill guibg=None gui=None')
-end
 
 
 return M
