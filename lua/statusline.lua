@@ -24,7 +24,9 @@ local bufname = require 'sections._bufname'
 local buficon = require 'sections._buficon'
 local editable = require 'sections._bufeditable'
 local filesize = require 'sections._filesize'
+local tabline = require'modules.tabline'
 local M = {}
+M.tabline = true -- Default to true
 
 
 -- Separators
@@ -68,12 +70,6 @@ cmd('hi Status_Line guibg='..statusline_bg..' guifg='..statusline_fg)
 --LSP Function Highlight Color
 cmd('hi Statusline_LSP_Func guibg='..statusline_bg..' guifg='..green)
 
---SET TABLINE COLOURS
-cmd('hi TabLineSel gui=Bold guibg=#8ec07c guifg=#292929')
-cmd('hi TabLineSelSeparator gui=bold guifg=#8ec07c')
-cmd('hi TabLine guibg=#504945 guifg=#b8b894 gui=None')
-cmd('hi TabLineSeparator guifg=#504945')
-cmd('hi TabLineFill guibg=None gui=None')
 
 -- INACTIVE BUFFER Colours
 local InactiveLine_bg = '#1c1c1c'
@@ -160,5 +156,17 @@ function M.inActiveLine()
   return space..file_name..space..buficon.get_file_icon()
 end
 
+
+
+
+------------------------------------------------------------------------
+--                        Tabline Config                              --
+------------------------------------------------------------------------
+M.tabline_init = function()
+    if M.tabline == true then
+    vim.o.tabline = tabline.tabline_init()
+    tabline.set_colours()
+    end
+end
 
 return M
