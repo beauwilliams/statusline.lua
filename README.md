@@ -69,4 +69,11 @@ statusline.tabline = false
 - [x] Shed Nvim-Webdev-Icons
 - [ ] Theme Support
 
+# Credits
+
+[lualine](https://github.com/hoob3rt/lualine.nvim)
+[galaxyline](https://github.com/glepnir/galaxyline.nvim/tree/main/lua/galaxyline)
+[neoline](https://github.com/adelarsq/neoline.vim/tree/master/lua)
+
+
 # This repo is in alpha stage and breaking changes may be made at any point
