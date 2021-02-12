@@ -49,6 +49,7 @@ use 'beauwilliams/statusline.lua'
 # Configuration
 **Disable Tabline**
 ```lua
+-- place me somewhere in your init.lua
 local statusline = require('statusline')
 statusline.tabline = false
 ```
