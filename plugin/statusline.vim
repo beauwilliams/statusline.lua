@@ -22,7 +22,7 @@ augroup Statusline
 augroup END
 
 function! TabLine()
-    return luaeval("require'modules.tabline'.TabLine()")
+    return luaeval("require'statusline'.tabline_init()")
 endfunction
 
 "SET TABLINE. ONLY NEED DO ONCE ONLY

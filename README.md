@@ -46,6 +46,13 @@ Plug 'beauwilliams/statusline.lua'
 use 'beauwilliams/statusline.lua'
 ```
 
+# Configuration
+**Disable Tabline**
+```lua
+local statusline = require('statusline')
+statusline.tabline = false
+```
+
 
 ## Optional Dependencies
 
