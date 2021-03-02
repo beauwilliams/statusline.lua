@@ -132,14 +132,22 @@ function M.activeLine()
   -- Alignment to left
   statusline = statusline.."%="
 
+
+
   -- Component: LSP CURRENT FUCTION --> Requires LSP
   statusline = statusline.."%#Statusline_LSP_Func# "..lsp.lsp_current_function()
 
   -- RIGHT SIDE INFO
+
+  -- Scrollbar
+  -- statusline = statusline.."%#Status_Line#"..call('Scrollbar')..space
+
   -- Component: Modified, Read-Only, Filesize, Row/Col
   statusline = statusline.."%#Status_Line#"..bufmod.is_buffer_modified()
   statusline = statusline..editable.editable()..filesize.get_file_size()..[[ʟ %l/%L c %c]]..space
   cmd('set noruler') --disable line numbers in bottom right for our custom indicator as above
+
+
 
   return statusline
 end
