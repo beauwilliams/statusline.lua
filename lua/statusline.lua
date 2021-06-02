@@ -118,7 +118,11 @@ function M.activeLine()
 
   -- Component: errors and warnings -> requires ALE
   -- TODO--> [beauwilliams] --> IMPLEMENT A LUA VERSION OF BELOW VIMSCRIPT FUNCS
-  statusline = statusline..call('LinterStatus')
+  -- statusline = statusline..call('LinterStatus')
+
+  -- Component: Native Nvim LSP Diagnostic
+  statusline = statusline..lsp.diagnostics()
+
   -- TODO--> SUPPORT COC LATER, NEEDS TESTING WITH COC USERS FIRST
   -- statusline = statusline..M.cocStatus()
 
@@ -132,10 +136,8 @@ function M.activeLine()
   -- Alignment to left
   statusline = statusline.."%="
 
-
-
   -- Component: LSP CURRENT FUCTION --> Requires LSP
-  statusline = statusline.."%#Statusline_LSP_Func# "..lsp.lsp_current_function()
+  statusline = statusline.."%#Statusline_LSP_Func# "..lsp.current_function()
 
   -- RIGHT SIDE INFO
 
