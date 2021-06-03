@@ -10,7 +10,7 @@
 --                             Variables                              --
 ------------------------------------------------------------------------
 
--- TODO--> [beauwilliams] --> Better handling of data
+-- TODO: [beauwilliams] --> Better handling of data
 local api = vim.api
 local cmd = api.nvim_command
 local call = vim.call
@@ -119,7 +119,7 @@ function M.activeLine()
   statusline = statusline..buficon.get_file_icon()
 
   -- Component: errors and warnings -> requires ALE
-  -- TODO--> [beauwilliams] --> IMPLEMENT A LUA VERSION OF BELOW VIMSCRIPT FUNCS
+  -- TODO: [beauwilliams] --> IMPLEMENT A LUA VERSION OF BELOW VIMSCRIPT FUNCS
   if M.ale_diagnostics == true then
       statusline = statusline..call('LinterStatus')
   end
@@ -129,7 +129,7 @@ function M.activeLine()
       statusline = statusline..lsp.diagnostics()
   end
 
-  -- TODO--> SUPPORT COC LATER, NEEDS TESTING WITH COC USERS FIRST
+  -- TODO: SUPPORT COC LATER, NEEDS TESTING WITH COC USERS FIRST
   -- statusline = statusline..M.cocStatus()
 
   -- Component: git commit stats -> REQUIRES SIGNIFY
