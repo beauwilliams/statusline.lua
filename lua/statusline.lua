@@ -26,7 +26,7 @@ local editable = require 'sections._bufeditable'
 local filesize = require 'sections._filesize'
 local tabline = require'modules.tabline'
 local M = {}
-M.tabline = true -- Default to true
+M.tabline = false -- Default to false
 M.ale_diagnostics = false -- Disable Ale by default [I personally use ale as it means we get errors without lsp servers needing to be installed]
 M.lsp_diagnostics = true -- Enable Nvim native LSP as default
 

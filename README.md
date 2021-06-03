@@ -47,10 +47,10 @@ use 'beauwilliams/statusline.lua'
 ```
 
 # Configuration
-**Disable Tabline**
+**Enable Tabline**
 ```lua
 local statusline = require('statusline')
-statusline.tabline = false
+statusline.tabline = true
 ```
 
 **Enable ALE Diagnostics Display**
@@ -67,8 +67,9 @@ statusline.ale_diagnostics = true
 ## Optional Dependencies
 
     - Signify [Git Status]
-    - Ale [Linter]
-    - LSP_Current_Func [require('lsp-status').on_attach(client)]
+    - Ale [Diagnotics] --> I recommend ALE with nathunsmitty/nvim-ale-diagnostic
+    - Native LSP_[Current Function] --> require('lsp-status').on_attach(client)
+    - Native LSP [Diagnostics] --> Must have a relevant language server to provide diagnostics
 
 ## Planned Improvements 😼
 
