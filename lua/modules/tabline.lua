@@ -15,7 +15,9 @@ local TrimmedDirectory = function(dir)
     local home = os.getenv("HOME")
     local _, index = string.find(dir, home, 1)
     if index ~= nil and index ~= string.len(dir) then
-        -- TODO: Trimmed Home Directory
+        if string.len (dir) > 30 then
+            dir = ".."..string.sub(dir,30)
+        end
         return string.gsub(dir, home, '~')
     end
     return dir
