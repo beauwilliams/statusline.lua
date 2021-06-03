@@ -1,6 +1,6 @@
 
 # Statusline.lua
-![screenshot](https://i.ibb.co/xsJk131/Screen-Shot-2021-06-03-at-6-33-36-pm.png)
+![screenshot](https://i.ibb.co/yYPQVHr/Screen-Shot-2021-06-03-at-10-57-05-pm.png)
 
 # Statusline
 ![screencast](https://i.ibb.co/DM0pykL/op.gif)
