@@ -8,7 +8,7 @@
 
 ***A tidy statusline for neovim written in lua featuring***
 
-🔋 Batteries Included. No configuration neccessary
+🔋 Batteries Included. No configuration needed.
 
 🕴  Minimalist Mode Indicators
 
@@ -18,7 +18,7 @@
 
 🌴 Git Branch
 
-❗️ Linter Status [Ale]
+❗️ Diagnostics Status [Ale & Native Nvim LSP] --> Native LSP set as default
 
 🔦 LSP Current Function [builtinlsp.current_function] --> Requires `require('lsp-status').on_attach(client)`
 
@@ -47,19 +47,29 @@ use 'beauwilliams/statusline.lua'
 ```
 
 # Configuration
-**Disable Tabline**
+**Enable Tabline**
 ```lua
--- place me somewhere in your init.lua
 local statusline = require('statusline')
-statusline.tabline = false
+statusline.tabline = true
+```
+
+**Enable ALE Diagnostics Display**
+```lua
+-- NOTE: Nvim Native LSP is displayed default
+-- I personally prefer ALE, with nathunsmitty/nvim-ale-diagnostic piping LSP diags
+-- With ALE you can get errors displayed without explicitly needing an LSP server
+local statusline = require('statusline')
+statusline.lsp_diagnostics = false
+statusline.ale_diagnostics = true
 ```
 
 
 ## Optional Dependencies
 
     - Signify [Git Status]
-    - Ale [Linter]
-    - LSP_Current_Func [require('lsp-status').on_attach(client)]
+    - Ale [Diagnotics] --> I recommend ALE with nathunsmitty/nvim-ale-diagnostic
+    - Native LSP_[Current Function] --> require('lsp-status').on_attach(client)
+    - Native LSP [Diagnostics] --> Must have a relevant language server to provide diagnostics
 
 ## Planned Improvements 😼
 
@@ -67,6 +77,7 @@ statusline.tabline = false
 - [ ] Async everything
 - [x] Shed Fugitive
 - [x] Shed Nvim-Webdev-Icons
+- [x] Support Native LSP
 - [ ] Theme Support
 
 # Credits

@@ -1,5 +1,6 @@
-local git_branch
 local M = {}
+local git_branch
+local space = ' '
 
 -- os specific path separator
 local sep = package.config:sub(1,1)
@@ -64,7 +65,7 @@ end
 function M.branch()
   if not git_branch or #git_branch == 0 then return '' end
     local icon =  ''
-    return icon .. ' ' .. git_branch
+    return icon .. space .. git_branch..space
 end
 
 -- run watch head on load so branch is present when component is loaded
