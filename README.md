@@ -1,13 +1,13 @@
-# Statusline.lua
-
-![screencast](https://i.ibb.co/DM0pykL/op.gif)
-
-# Tabline.lua [BONUS]
-
-![screenshot](https://i.ibb.co/zhqf9nK/Screen-Shot-2021-02-09-at-2-19-10-pm.png)
 
 # Screenshot
 ![screenshot](https://i.ibb.co/xsJk131/Screen-Shot-2021-06-03-at-6-33-36-pm.png)
+
+# Statusline
+![screencast](https://i.ibb.co/DM0pykL/op.gif)
+
+# Tabline [BONUS]
+![screenshot](https://i.ibb.co/zhqf9nK/Screen-Shot-2021-02-09-at-2-19-10-pm.png)
+
 
 ***A tidy statusline for neovim written in lua featuring***
 
