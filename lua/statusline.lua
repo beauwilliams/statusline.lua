@@ -27,6 +27,8 @@ local filesize = require 'sections._filesize'
 local tabline = require'modules.tabline'
 local M = {}
 M.tabline = true -- Default to true
+M.ale_diagnostics = false -- Disable Ale by default [I personally use ale as it means we get errors without lsp servers needing to be installed]
+M.lsp_diagnostics = true -- Enable Nvim native LSP as default
 
 
 -- Separators
@@ -118,10 +120,14 @@ function M.activeLine()
 
   -- Component: errors and warnings -> requires ALE
   -- TODO--> [beauwilliams] --> IMPLEMENT A LUA VERSION OF BELOW VIMSCRIPT FUNCS
-  -- statusline = statusline..call('LinterStatus')
+  if M.ale_diagnostics == true then
+      statusline = statusline..call('LinterStatus')
+  end
 
   -- Component: Native Nvim LSP Diagnostic
-  statusline = statusline..lsp.diagnostics()
+  if M.lsp_diagnostics == true then
+      statusline = statusline..lsp.diagnostics()
+  end
 
   -- TODO--> SUPPORT COC LATER, NEEDS TESTING WITH COC USERS FIRST
   -- statusline = statusline..M.cocStatus()
