@@ -1,8 +1,8 @@
-# statusline.lua
+# Statusline.lua
 
 ![screencast](https://i.ibb.co/DM0pykL/op.gif)
 
-## tabline.lua [BONUS]
+# Tabline.lua [BONUS]
 
 ![screenshot](https://i.ibb.co/zhqf9nK/Screen-Shot-2021-02-09-at-2-19-10-pm.png)
 
