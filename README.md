@@ -1,5 +1,5 @@
 
-# Screenshot
+# Statusline.lua
 ![screenshot](https://i.ibb.co/xsJk131/Screen-Shot-2021-06-03-at-6-33-36-pm.png)
 
 # Statusline
