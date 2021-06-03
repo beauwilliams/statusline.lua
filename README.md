@@ -35,7 +35,7 @@
 
 😻 Tabline Support
 
-🎨 Smooth colours inspired by gruvbox
+🎨 Smooth colours inspired by *gruvbox*
 
 🚀 More to come!
 
@@ -70,8 +70,8 @@ statusline.ale_diagnostics = true
 ## Optional Dependencies
 
     - Signify [Git Status]
-    - Ale [Diagnotics] --> I recommend ALE with nathunsmitty/nvim-ale-diagnostic
-    - Native LSP_[Current Function] --> require('lsp-status').on_attach(client)
+    - Ale [Diagnostics] --> I recommend ALE with nathunsmitty/nvim-ale-diagnostic
+    - Native LSP [Current Function] --> require('lsp-status').on_attach(client)
     - Native LSP [Diagnostics] --> Must have a relevant language server to provide diagnostics
 
 ## Planned Improvements 😼
