@@ -25,8 +25,12 @@ function! TabLine()
     return luaeval("require'statusline'.tabline_init()")
 endfunction
 
-"SET TABLINE. ONLY NEED DO ONCE ONLY
-set tabline=%!TabLine()
+"SET TABLINE
+augroup TabLine
+  autocmd!
+  autocmd WinEnter,BufEnter * set tabline=%!TabLine()
+augroup END
+
 
 
 function! Scrollbar() abort
