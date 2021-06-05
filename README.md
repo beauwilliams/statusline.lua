@@ -50,10 +50,10 @@ use 'beauwilliams/statusline.lua'
 ```
 
 # Configuration
-**Enable Tabline**
+**Disable Tabline**
 ```lua
 local statusline = require('statusline')
-statusline.tabline = true
+statusline.tabline = false
 ```
 
 **Enable ALE Diagnostics Display**
