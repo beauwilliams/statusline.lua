@@ -25,7 +25,7 @@
 
 🔦 LSP Current Function [builtinlsp.current_function] --> Requires `require('lsp-status').on_attach(client)`
 
-💡 LSP Code Action Indicator [textDocument/codeAction] --> Requires `require'nvim-lightbulb'.get_status_text()`
+💡 LSP Code Action Indicator [textDocument/codeAction] --> Requires `kosayoda/nvim-lightbulb/`
 
 ❓ File Modified Status
 
