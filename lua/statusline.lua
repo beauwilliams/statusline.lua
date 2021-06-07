@@ -144,6 +144,7 @@ function M.activeLine()
 
   -- Component: LSP CURRENT FUCTION --> Requires LSP
   statusline = statusline.."%#Statusline_LSP_Func# "..lsp.current_function()
+  statusline = statusline.."%#Statusline_LSP_Func# "..lsp.lightbulb()
 
   -- RIGHT SIDE INFO
 
