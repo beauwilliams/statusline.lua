@@ -1,8 +1,6 @@
 local M = {}
 local space = ' '
 
-local yo
-
 function M.current_function()
     local lsp_function = vim.b.lsp_current_function
     if lsp_function == nil then return '' end
@@ -23,6 +21,7 @@ function M.diagnostics()
     diagnostics = h~=0 and diagnostics..' '..h..space or diagnostics
     return diagnostics
 end
+
 
 -- REQUIRES NVIM LIGHTBULB
 function M.lightbulb()
