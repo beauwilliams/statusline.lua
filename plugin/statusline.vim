@@ -26,17 +26,8 @@ function! TabLine()
 endfunction
 
 
-"FIXME: Currently I need to assign this temp var so that tabline_init is run,
-"and then is checks to see if tabline is enabled and sets aucommand to assign
-"tabline
-let temp=luaeval("require'statusline'.tabline_init()")
-"SET TABLINE
-augroup TabLine
-    autocmd!
-    " ENALBING TALBINE HERE SETS A NULL VALUE IF ITS ENABLED. CODE WORKS FOR
-    " NOW.. BUT ITS A MESS. TODO: Fix this
-        " autocmd WinEnter,BufEnter * set tabline=%!TabLine()
-augroup END
+"INIT TABLINE, if its disabled through users init.lua, nothing will happen
+lua require'statusline'.tabline_init()
 
 
 

@@ -180,7 +180,6 @@ end
 ------------------------------------------------------------------------
 M.tabline_init = function()
     if M.tabline == true then
-        vim.cmd('autocmd WinEnter,BufEnter * set tabline=%!TabLine()')
         vim.o.tabline = tabline.init()
     end
 end
