@@ -1,5 +1,5 @@
 [![GitHub stars](https://img.shields.io/github/stars/beauwilliams/statusline.lua.svg?style=social&label=Star&maxAge=2592000)](https://GitHub.com/beauwilliams/statusline.lua/stargazers/)
-![Documentation Status](https://readthedocs.org/projects/ansicolortags/badge/?version=latest)](http://ansicolortags.readthedocs.io/?badge=latest)
+[![Generic badge](https://img.shields.io/badge/<requires>-<nvim 0.5>-<COLOR>.svg)](https://shields.io/)
 [![GitHub contributors](https://img.shields.io/github/contributors/beauwilliams/statusline.lua.svg)](https://GitHub.com/beauwilliams/statusline.lua/graphs/contributors/)
 [![GitHub issues](https://img.shields.io/github/issues/beauwilliams/statusline.lua.svg)](https://GitHub.com/beauwilliams/statusline.lua/issues/)
 [![GitHub issues-closed](https://img.shields.io/github/issues-closed/beauwilliams/statusline.lua.svg)](https://GitHub.com/beauwilliams/statusline.lua/issues?q=is%3Aissue+is%3Aclosed)
