@@ -25,7 +25,12 @@ end
 
 -- REQUIRES NVIM LIGHTBULB
 function M.lightbulb()
-    if require'nvim-lightbulb'.get_status_text() ~= "" then
+    local has_lightbulb, lightbulb = pcall(require, 'nvim-lightbulb')
+    if not has_lightbulb then
+        return ""
+    end
+
+    if lightbulb.get_status_text() ~= "" then
         return ""..space
     else
         return ""
