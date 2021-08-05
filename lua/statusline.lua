@@ -104,6 +104,9 @@ local set_mode_colours = function(mode)
 end
 
 
+
+
+
 ------------------------------------------------------------------------
 --                              Statusline                            --
 ------------------------------------------------------------------------
@@ -138,6 +141,11 @@ function M.activeLine()
 
   -- Component: git branch name -> requires FUGITIVE
   statusline = statusline..git_branch.branch()
+
+  --Component: Lsp Progress
+    -- if lsp.lsp_progress()~= nil then
+  statusline = statusline..lsp.lsp_progress()
+    -- end
 
   -- Alignment to left
   statusline = statusline.."%="

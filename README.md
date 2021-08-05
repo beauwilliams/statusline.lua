@@ -10,7 +10,7 @@
 ![screenshot](https://i.imgur.com/QocSv7V.png)
 
 # Statusline
-![screencast](https://i.ibb.co/DM0pykL/op.gif)
+![screencast](https://i.ibb.co/wgTJ58D/ezgif-4-b462544889e2.gif)
 
 # Tabline [BONUS]
 ![screenshot](https://i.ibb.co/zhqf9nK/Screen-Shot-2021-02-09-at-2-19-10-pm.png)
@@ -33,6 +33,8 @@
 🔦 LSP Current Function [builtinlsp.current_function] --> Requires `require('lsp-status').on_attach(client)`
 
 💡 LSP Code Action Indicator [textDocument/codeAction] --> Requires `kosayoda/nvim-lightbulb/`
+
+💯 LSP Progress Messages ⠼ [vim.lsp.util.get_progress_messages] --> Requires `require('lsp-status').on_attach(client)`
 
 ❓ File Modified Status
 
