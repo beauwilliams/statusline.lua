@@ -30,7 +30,7 @@
 
 ❗️ Diagnostics Status [Ale & Native Nvim LSP] --> Native LSP set as default
 
-🔦 LSP Current Function [builtinlsp.current_function] --> Requires `require('lsp-status').on_attach(client)`
+🔦 LSP Current Function [builtinlsp.current_function]
 
 💡 LSP Code Action Indicator [textDocument/codeAction] --> Requires `kosayoda/nvim-lightbulb/`
 
