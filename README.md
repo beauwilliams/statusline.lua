@@ -33,7 +33,7 @@
 🔦 LSP Current Function [builtinlsp.current_function] --> Requires `require('lsp-status').on_attach(client)`
 
 💡 LSP Code Action Indicator [textDocument/codeAction] --> Requires `kosayoda/nvim-lightbulb/`
-
+ 
 💯 LSP Progress Messages ⠼ [vim.lsp.util.get_progress_messages]
 
 ❓ File Modified Status
@@ -84,6 +84,7 @@ statusline.ale_diagnostics = true
     - Ale [Diagnostics] --> I recommend ALE with nathunsmitty/nvim-ale-diagnostic
     - Native LSP [Current Function] --> require('lsp-status').on_attach(client)
     - Native LSP [Diagnostics] --> Must have a relevant language server to provide diagnostics
+    - Native LSP [Progress %] --> Must have a relevant language server to provide progress messages
     - Native LSP [Code Actions] --> Requires kosayoda/nvim-lightbulb/
 
 ## Planned Improvements 😼
