@@ -34,7 +34,7 @@
 
 💡 LSP Code Action Indicator [textDocument/codeAction] --> Requires `kosayoda/nvim-lightbulb/`
 
-💯 LSP Progress Messages ⠼ [vim.lsp.util.get_progress_messages] --> Requires `require('lsp-status').on_attach(client)`
+💯 LSP Progress Messages ⠼ [vim.lsp.util.get_progress_messages]
 
 ❓ File Modified Status
 
