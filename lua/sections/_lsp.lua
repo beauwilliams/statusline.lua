@@ -23,6 +23,7 @@ function M.diagnostics()
     return diagnostics
 end
 
+
 function M.lsp_progress()
     local messages = {}
     local result = {}
@@ -39,7 +40,6 @@ function M.lsp_progress()
     end
     return table.concat(result, " ") .. " " .. spinners[frame + 1]
 end
-
 
 
 -- REQUIRES NVIM LIGHTBULB
