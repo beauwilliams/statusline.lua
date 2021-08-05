@@ -24,18 +24,20 @@ function M.diagnostics()
 end
 
 function M.lsp_progress()
-  local messages = vim.lsp.util.get_progress_messages()
-  if #messages == 0 then
-    return ''
-  end
-  local spinners = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
-  local status = {}
-  for _, msg in pairs(messages) do
-    table.insert(status, (msg.percentage or 0) .. "%% " .. (msg.title or ""))
-  end
-  local ms = vim.loop.hrtime() / 1000000
-  local frame = math.floor(ms / 120) % #spinners
-  return table.concat(status, " ") .. " " .. spinners[frame + 1]
+    local messages = {}
+    local result = {}
+    local spinners = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
+    local ms = vim.loop.hrtime() / 1000000
+    local frame = math.floor(ms / 120) % #spinners
+    -- Display at most 3 messages
+    for i=1,3 do messages = vim.lsp.util.get_progress_messages(i) end
+    if #messages == 0 then
+        return ''
+    end
+    for _, msg in pairs(messages) do
+        table.insert(result, (msg.percentage or 0) .. "%% " .. (msg.title or ""))
+    end
+    return table.concat(result, " ") .. " " .. spinners[frame + 1]
 end
 
 
