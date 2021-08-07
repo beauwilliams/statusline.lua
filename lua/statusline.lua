@@ -176,8 +176,9 @@ end
 
 -- INACTIVE FUNCTION DISPLAY
 function M.inActiveLine()
-  local file_name = func('expand', {'%F'})
-  return space..file_name..space..buficon.get_file_icon()
+  local statusline = ""
+    -- Component: Filetype and icons
+  return statusline.."%#Status_Line#"..bufname.get_buffer_name()..buficon.get_file_icon()
 end
 
 
