@@ -18,6 +18,7 @@ endfunction
 augroup Statusline
   autocmd!
   autocmd WinEnter,BufEnter * setlocal statusline=%!ActiveLine()
+  autocmd WinEnter,BufEnter NvimTree setlocal statusline=
   autocmd WinLeave,BufLeave * setlocal statusline=
 augroup END
 
