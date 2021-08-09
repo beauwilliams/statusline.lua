@@ -165,6 +165,12 @@ function M.activeLine()
 end
 
 
+-- statusline for simple buffers such as NvimTree where you don't need mode indicators etc
+function M.simpleLine()
+  local statusline = ""
+  return statusline.."%#Status_Line#"..bufname.get_buffer_name()..''
+end
+
 ------------------------------------------------------------------------
 --                              Inactive                              --
 ------------------------------------------------------------------------
@@ -174,5 +180,6 @@ function M.inActiveLine()
   local statusline = ""
   return statusline..bufname.get_buffer_name()..buficon.get_file_icon()
 end
+
 
 return M

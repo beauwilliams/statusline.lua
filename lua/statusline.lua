@@ -25,6 +25,10 @@ function M.activeLine()
   vim.wo.statusline=statusline.activeLine()
 end
 
+function M.simpleLine()
+  vim.wo.statusline=statusline.simpleLine()
+end
+
 
 ------------------------------------------------------------------------
 --                              Inactive                              --

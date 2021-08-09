@@ -7,8 +7,8 @@
 augroup Inits
   autocmd!
   autocmd WinEnter,BufEnter * lua require'statusline'.activeLine()
-  autocmd WinEnter,BufEnter NvimTree lua require'statusline'.inActiveLine()
   autocmd WinLeave,BufLeave * lua require'statusline'.inActiveLine()
+  autocmd WinEnter,BufEnter,WinLeave,BufLeave NvimTree lua require'statusline'.simpleLine()
   autocmd WinEnter,BufEnter * lua require'statusline'.tabline_init()
   autocmd VimResized * redrawstatus
 augroup END
