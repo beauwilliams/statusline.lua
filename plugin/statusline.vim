@@ -6,7 +6,7 @@
 
 augroup Inits
   autocmd!
-  autocmd WinEnter,BufEnter,TextChanged,TextChangedI * lua require'statusline'.activeLine()
+  autocmd WinEnter,BufEnter,TextChanged,TextChangedI,CursorMoved,CursorMovedI * lua require'statusline'.activeLine()
   autocmd WinLeave,BufLeave * lua require'statusline'.inActiveLine()
   autocmd WinEnter,BufEnter,WinLeave,BufLeave NvimTree lua require'statusline'.simpleLine()
   autocmd WinEnter,BufEnter * lua require'statusline'.tabline_init()
