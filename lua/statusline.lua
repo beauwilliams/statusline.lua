@@ -22,11 +22,11 @@ M.ale_diagnostics = false -- Disable Ale by default
 -- TODO: Clean up this mess
 function M.activeLine()
     if M.lsp_diagnostics == true then
-        vim.o.statusline = "%!v:lua.require'modules.statusline'.wants_lsp()"
+        vim.wo.statusline = "%!v:lua.require'modules.statusline'.wants_lsp()"
     elseif M.ale_diagnostics == true then
-        vim.o.statusline = "%!v:lua.require'modules.statusline'.wants_ale()"
+        vim.wo.statusline = "%!v:lua.require'modules.statusline'.wants_ale()"
     else
-        vim.o.statusline = "%!v:lua.require'modules.statusline'.activeLine()"
+        vim.wo.statusline = "%!v:lua.require'modules.statusline'.activeLine()"
     end
 end
 
