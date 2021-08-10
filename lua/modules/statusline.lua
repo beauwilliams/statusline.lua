@@ -99,9 +99,6 @@ local set_mode_colours = function(mode)
 end
 
 
-
-
-
 ------------------------------------------------------------------------
 --                              Statusline                            --
 ------------------------------------------------------------------------
@@ -118,12 +115,12 @@ function M.activeLine()
 
   -- Component: errors and warnings -> requires ALE
   -- TODO: [beauwilliams] --> IMPLEMENT A LUA VERSION OF BELOW VIMSCRIPT FUNCS
-  if M.ale_diagnostics == true then
+  if diag_ale then
       statusline = statusline..call('LinterStatus')
   end
 
   -- Component: Native Nvim LSP Diagnostic
-  if M.lsp_diagnostics == true then
+  if diag_lsp then
       statusline = statusline..lsp.diagnostics()
   end
 
@@ -158,10 +155,17 @@ function M.activeLine()
   statusline = statusline.."%#Status_Line#"..bufmod.is_buffer_modified()
   statusline = statusline..editable.editable()..filesize.get_file_size()..[[ʟ %l/%L c %c]]..space
   cmd('set noruler') --disable line numbers in bottom right for our custom indicator as above
-
-
-
   return statusline
+end
+
+function M.wants_lsp()
+    diag_lsp = true
+    return M.activeLine(diag_lsp)
+end
+
+function M.wants_ale()
+    diag_ale = true
+    return M.activeLine(diag_ale)
 end
 
 

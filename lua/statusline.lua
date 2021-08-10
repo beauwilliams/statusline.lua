@@ -1,4 +1,3 @@
-
 --[[
    _____  ______    ___   ______   __  __   _____    __     ____    _   __    ______
   / ___/ /_  __/   /   | /_  __/  / / / /  / ___/   / /    /  _/   / | / /   / ____/
@@ -10,32 +9,37 @@
 --                             Variables                              --
 ------------------------------------------------------------------------
 
-local tabline = require'modules.tabline'
-local statusline = require'modules.statusline'
+local tabline = require "modules.tabline"
+local statusline = require "modules.statusline"
 local M = {}
 M.tabline = true -- Default to true
-M.ale_diagnostics = false -- Disable Ale by default [I personally use ale as it means we get errors without lsp servers needing to be installed]
 M.lsp_diagnostics = true -- Enable Nvim native LSP as default
-
+M.ale_diagnostics = false -- Disable Ale by default
 
 ------------------------------------------------------------------------
 --                              Statusline                            --
 ------------------------------------------------------------------------
+-- TODO: Clean up this mess
 function M.activeLine()
-  vim.wo.statusline=statusline.activeLine()
+    if M.lsp_diagnostics == true then
+        vim.o.statusline = "%!v:lua.require'modules.statusline'.wants_lsp()"
+    elseif M.ale_diagnostics == true then
+        vim.o.statusline = "%!v:lua.require'modules.statusline'.wants_ale()"
+    else
+        vim.o.statusline = "%!v:lua.require'modules.statusline'.activeLine()"
+    end
 end
 
 function M.simpleLine()
-  vim.wo.statusline=statusline.simpleLine()
+    vim.wo.statusline = statusline.simpleLine()
 end
-
 
 ------------------------------------------------------------------------
 --                              Inactive                              --
 ------------------------------------------------------------------------
 
 function M.inActiveLine()
-  vim.wo.statusline = statusline.inActiveLine()
+    vim.wo.statusline = statusline.inActiveLine()
 end
 
 ------------------------------------------------------------------------
