@@ -51,7 +51,6 @@ cmd('hi TabLineFill guibg=None gui=None')
 end
 
 function M.init()
-    vim.cmd('autocmd WinEnter,BufEnter * set tabline=%!TabLine()')
     set_colours()
     local tabline = ''
     local tab_list = api.nvim_list_tabpages()

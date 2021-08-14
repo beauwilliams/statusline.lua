@@ -36,7 +36,9 @@ function M.lsp_progress()
         return ''
     end
     for _, msg in pairs(messages) do
-        table.insert(result, (msg.percentage or 0) .. "%% " .. (msg.title or ""))
+        if msg.title ~= "Diagnosing" then
+            table.insert(result, (msg.percentage or 0) .. "%% " .. (msg.title or ""))
+        end
     end
     return table.concat(result, " ") .. " " .. spinners[frame + 1]
 end
