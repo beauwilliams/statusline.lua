@@ -9,8 +9,8 @@
 --                             Variables                              --
 ------------------------------------------------------------------------
 
-local tabline = require "modules.tabline"
-local statusline = require "modules.statusline"
+local tabline = require('modules.tabline')
+local statusline = require('modules.statusline')
 local M = {}
 M.tabline = true -- Default to true
 M.lsp_diagnostics = true -- Enable Nvim native LSP as default
@@ -21,17 +21,17 @@ M.ale_diagnostics = false -- Disable Ale by default
 ------------------------------------------------------------------------
 -- TODO: Clean up this mess
 function M.activeLine()
-    if M.lsp_diagnostics == true then
-        vim.wo.statusline = "%!v:lua.require'modules.statusline'.wants_lsp()"
-    elseif M.ale_diagnostics == true then
-        vim.wo.statusline = "%!v:lua.require'modules.statusline'.wants_ale()"
-    else
-        vim.wo.statusline = "%!v:lua.require'modules.statusline'.activeLine()"
-    end
+	if M.lsp_diagnostics == true then
+		vim.wo.statusline = "%!v:lua.require'modules.statusline'.wants_lsp()"
+	elseif M.ale_diagnostics == true then
+		vim.wo.statusline = "%!v:lua.require'modules.statusline'.wants_ale()"
+	else
+		vim.wo.statusline = "%!v:lua.require'modules.statusline'.activeLine()"
+	end
 end
 
 function M.simpleLine()
-    vim.wo.statusline = statusline.simpleLine()
+	vim.wo.statusline = statusline.simpleLine()
 end
 
 ------------------------------------------------------------------------
@@ -39,16 +39,16 @@ end
 ------------------------------------------------------------------------
 
 function M.inActiveLine()
-    vim.wo.statusline = statusline.inActiveLine()
+	vim.wo.statusline = statusline.inActiveLine()
 end
 
 ------------------------------------------------------------------------
 --                        Tabline Config                              --
 ------------------------------------------------------------------------
 M.tabline_init = function()
-    if M.tabline == true then
-        vim.o.tabline = tabline.init()
-    end
+	if M.tabline == true then
+		vim.o.tabline = tabline.init()
+	end
 end
 
 return M
