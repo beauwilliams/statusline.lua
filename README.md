@@ -33,7 +33,7 @@
 🔦 LSP Current Function [builtinlsp.current_function] --> Requires `require('lsp-status').on_attach(client)`
 
 💡 LSP Code Action Indicator [textDocument/codeAction] --> Requires `kosayoda/nvim-lightbulb/`
- 
+
 💯 LSP Progress Messages ⠼ [vim.lsp.util.get_progress_messages]
 
 ❓ File Modified Status
@@ -95,6 +95,17 @@ statusline.ale_diagnostics = true
 - [x] Shed Nvim-Webdev-Icons
 - [x] Support Native LSP
 - [ ] Theme Support
+
+# Developers Only
+
+**Contributing**
+
+Please before submitting a PR install stylua [here](https://github.com/JohnnyMorganz/StyLua)
+
+And run `stylua .` from your shell in the root folder of `focus.nvim`
+
+This will format the code according to the guidlines set in `stylua.toml`
+
 
 # Credits
 
