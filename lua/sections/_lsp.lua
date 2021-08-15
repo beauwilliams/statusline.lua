@@ -25,7 +25,6 @@ end
 
 
 function M.lsp_progress()
-    local messages = {}
     local result = {}
     local spinners = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
     local ms = vim.loop.hrtime() / 1000000
@@ -37,7 +36,7 @@ function M.lsp_progress()
     end
 
     -- Only display at most 2 progress messages at a time to avoid clutter
-    i = 1
+    local i = 1
     for _, msg in pairs(messages) do
         if i < 3 then
                 table.insert(result, (msg.percentage or 0) .. "%% " .. (msg.title or ""))
