@@ -23,28 +23,32 @@ function M.diagnostics()
     return diagnostics
 end
 
-
-function M.lsp_progress()
+-- REQUIRES LSP
+local function format_messages(messages)
     local result = {}
     local spinners = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
     local ms = vim.loop.hrtime() / 1000000
     local frame = math.floor(ms / 120) % #spinners
-    -- Display at most 3 messages
-    local messages = vim.lsp.util.get_progress_messages()
-    if #messages == 0 then
-        return ''
-    end
-
-    -- Only display at most 2 progress messages at a time to avoid clutter
     local i = 1
     for _, msg in pairs(messages) do
+        -- Only display at most 2 progress messages at a time to avoid clutter
         if i < 3 then
-                table.insert(result, (msg.percentage or 0) .. "%% " .. (msg.title or ""))
-                i = i + 1
+            table.insert(result, (msg.percentage or 0) .. "%% " .. (msg.title or ""))
+            i = i + 1
         end
     end
     return table.concat(result, " ") .. " " .. spinners[frame + 1]
 end
+
+
+function M.lsp_progress()
+    local messages = vim.lsp.util.get_progress_messages()
+    if #messages == 0 then
+        return ''
+    end
+    return format_messages(messages)
+end
+
 
 
 -- REQUIRES NVIM LIGHTBULB
