@@ -50,7 +50,7 @@
 
 🚀 More to come!
 
-## Installation
+# Installation
 ### [vim-plug](https://github.com/junegunn/vim-plug)
 ```vim
 Plug 'beauwilliams/statusline.lua'
