@@ -13,10 +13,28 @@ end
 -- icons       
 function M.diagnostics()
 	local diagnostics = ''
-	local e = vim.lsp.diagnostic.get_count(0, [[Error]])
-	local w = vim.lsp.diagnostic.get_count(0, [[Warning]])
-	local i = vim.lsp.diagnostic.get_count(0, [[Information]])
-	local h = vim.lsp.diagnostic.get_count(0, [[Hint]])
+	local has_vim_diagnostics, _ = pcall(require, 'vim.diagnostic')
+	local has_lsp_diagnostics, _ = pcall(require, 'vim.lsp.diagnostic')
+	local e, w, i, h
+	-- NOTE: nvim 0.6.1+ depracated vim.lsp.diagnostic
+	if has_vim_diagnostics then
+		local res = { 0, 0, 0, 0 }
+		for _, diagnostic in ipairs(vim.diagnostic.get(0)) do
+			res[diagnostic.severity] = res[diagnostic.severity] + 1
+		end
+		e = res[vim.diagnostic.severity.ERROR]
+		w = res[vim.diagnostic.severity.WARN]
+		i = res[vim.diagnostic.severity.INFO]
+		h = res[vim.diagnostic.severity.HINT]
+	elseif has_lsp_diagnostics then
+		e = vim.lsp.diagnostic.get_count(0, [[Error]])
+		w = vim.lsp.diagnostic.get_count(0, [[Warning]])
+		i = vim.lsp.diagnostic.get_count(0, [[Information]])
+		h = vim.lsp.diagnostic.get_count(0, [[Hint]])
+	else
+		return ''
+	end
+
 	diagnostics = e ~= 0 and diagnostics .. ' ' .. e .. space or diagnostics
 	diagnostics = w ~= 0 and diagnostics .. ' ' .. w .. space or diagnostics
 	diagnostics = i ~= 0 and diagnostics .. '𝒊 ' .. i .. space or diagnostics
