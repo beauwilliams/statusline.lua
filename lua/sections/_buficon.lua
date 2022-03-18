@@ -1,18 +1,18 @@
 local M = {}
 local api = vim.api
-local icons = require('tables._icons')
+local devicons = require('tables._icons')
+local icon
+local file_name
 local space = ' '
-function M.get_file_icon()
-	local file_name = api.nvim_buf_get_name(current_buf)
+function M.get_file_icon(bufnr)
+	--NOTE: Rather than use our internal bufname object
+	--we use full filename to detect terminal windows
+	file_name = api.nvim_buf_get_name(bufnr or 0)
 	if string.find(file_name, 'term://') ~= nil then
-		icon = ' ' .. api.nvim_call_function('fnamemodify', { file_name, ':p:t' })
-	end
-	file_name = api.nvim_call_function('fnamemodify', { file_name, ':p:t' })
-	if file_name == '' then
-		icon = ''
+		icon = ''..space
 		return icon
 	end
-	local icon = icons.deviconTable[file_name]
+	icon = devicons.deviconTable[file_name]
 	if icon ~= nil then
 		return icon .. space
 	else
