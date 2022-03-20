@@ -15,7 +15,7 @@
 # Tabline [BONUS]
 ![screenshot](https://i.ibb.co/zhqf9nK/Screen-Shot-2021-02-09-at-2-19-10-pm.png)
 
-# Light Theme Compatibility
+# Light Theme Compatible
 ![screenshot](https://i.ibb.co/VmQ6CMy/Screen-Shot-2022-03-20-at-1-10-40-pm.png)
 
 
