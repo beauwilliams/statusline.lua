@@ -15,6 +15,9 @@
 # Tabline [BONUS]
 ![screenshot](https://i.ibb.co/zhqf9nK/Screen-Shot-2021-02-09-at-2-19-10-pm.png)
 
+# Light Theme Compatibility
+![screenshot](https://i.ibb.co/VmQ6CMy/Screen-Shot-2022-03-20-at-1-10-40-pm.png)
+
 
 ***A tidy statusline for neovim written in lua featuring***
 
@@ -48,7 +51,7 @@
 
 🎨 Smooth colours inspired by *gruvbox*
 
-🚀 Looks great with a light or dark theme!
+🚀 More to come!
 
 # Installation
 ### [vim-plug](https://github.com/junegunn/vim-plug)
