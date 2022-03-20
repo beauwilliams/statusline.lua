@@ -48,7 +48,7 @@
 
 🎨 Smooth colours inspired by *gruvbox*
 
-🚀 More to come!
+🚀 Looks great with a light or dark theme!
 
 # Installation
 ### [vim-plug](https://github.com/junegunn/vim-plug)
