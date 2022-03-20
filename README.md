@@ -77,6 +77,11 @@ statusline.lsp_diagnostics = false
 statusline.ale_diagnostics = true
 ```
 
+**Enable Global Statusline (version 0.7+)**
+```lua
+-- This setting will mean that you have one single statusline drawn accross the entire display
+lua vim.o.laststatus=3
+```
 
 ## Optional Dependencies
 
