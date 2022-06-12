@@ -5,6 +5,9 @@ function M.get_buffer_name() --> IF We are in a buffer such as terminal or start
 
 	local filetype = vim.bo.ft --> Get vim filetype using nvim api
 	if filename ~= '' then --> IF filetype empty i.e in a terminal buffer etc, return name of buffer (filetype)
+			if string.find(filename,"NvimTree") then
+			return 'File Tree'..space
+		end
 		return filename .. space
 	else
 		if filetype ~= '' then
