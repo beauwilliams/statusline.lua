@@ -76,7 +76,7 @@ function M.branch()
 		return ''
 	end
 	local icon = ''
-	return icon .. space .. git_branch .. space
+	return icon .. space .. git_branch
 end
 
 -- run watch head on load so branch is present when component is loaded

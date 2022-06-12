@@ -17,9 +17,16 @@ M.lsp_diagnostics = true -- Enable Nvim native LSP as default
 M.ale_diagnostics = false -- Disable Ale by default
 
 ------------------------------------------------------------------------
+--                              Init                            --
+------------------------------------------------------------------------
+function M.statusline_init()
+  statusline.set_highlights()
+end
+
+
+------------------------------------------------------------------------
 --                              Statusline                            --
 ------------------------------------------------------------------------
--- TODO: Clean up this mess
 function M.activeLine()
 	if M.lsp_diagnostics == true then
 		vim.wo.statusline = "%!v:lua.require'modules.statusline'.wants_lsp()"

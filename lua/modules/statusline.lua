@@ -58,16 +58,6 @@ local mybg = '#504945'
 --Statusline colour
 local statusline_bg = 'None' --> Set to none, use native bg
 local statusline_fg = white_fg
--- local statusline_font = 'regular'
-cmd('hi Status_Line guibg=' .. statusline_bg .. ' guifg=' .. statusline_fg)
-
---LSP Function Highlight Color
-cmd('hi Statusline_LSP_Func guibg=' .. statusline_bg .. ' guifg=' .. green)
-
--- INACTIVE BUFFER Colours
-local InactiveLine_bg = '#1c1c1c'
-local InactiveLine_fg = white_fg
-cmd('hi InActive guibg=' .. InactiveLine_bg .. ' guifg=' .. InactiveLine_fg)
 
 -- Redraw different colors for different mode
 local set_mode_colours = function(mode)
@@ -91,6 +81,21 @@ local set_mode_colours = function(mode)
 		cmd('hi Mode guibg=' .. red .. ' guifg=' .. black_fg .. ' gui=bold')
 		cmd('hi ModeSeparator guifg=' .. red)
 	end
+end
+
+
+function M.set_highlights()
+    -- local statusline_font = 'regular'
+  cmd('hi Status_Line guibg=' .. statusline_bg .. ' guifg=' .. statusline_fg)
+
+  --LSP Function Highlight Color
+  cmd('hi Statusline_LSP_Func guibg=' .. statusline_bg .. ' guifg=' .. green)
+
+  -- INACTIVE BUFFER Colours
+  local InactiveLine_bg = '#1c1c1c'
+
+  local InactiveLine_fg = white_fg
+  cmd('hi InActive guibg=' .. InactiveLine_bg .. ' guifg=' .. InactiveLine_fg)
 end
 
 ------------------------------------------------------------------------
@@ -137,16 +142,16 @@ function M.activeLine()
 	--Component: Lsp Progress
 	-- if lsp.lsp_progress()~= nil then
 	statusline = statusline .. lsp.lsp_progress()
+	statusline = statusline .. '%#Statusline_LSP_Func# ' .. lsp.lightbulb()
 	-- end
 
+	-- RIGHT SIDE INFO
 	-- Alignment to left
 	statusline = statusline .. '%='
 
 	-- Component: LSP CURRENT FUCTION --> Requires LSP
 	statusline = statusline .. '%#Statusline_LSP_Func# ' .. lsp.current_function()
-	statusline = statusline .. '%#Statusline_LSP_Func# ' .. lsp.lightbulb()
 
-	-- RIGHT SIDE INFO
 
 	-- Scrollbar
 	-- statusline = statusline.."%#Status_Line#"..call('Scrollbar')..space

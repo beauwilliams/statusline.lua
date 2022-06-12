@@ -7,7 +7,7 @@ function M.current_function()
 	if lsp_function == nil then
 		return ''
 	end
-	return lsp_function
+	return lsp_function..space
 end
 
 -- icons       
@@ -64,7 +64,7 @@ function M.lsp_progress()
 	if #messages == 0 then
 		return ''
 	end
-	return format_messages(messages)
+	return space..format_messages(messages)
 end
 
 -- REQUIRES NVIM LIGHTBULB

@@ -7,6 +7,7 @@
 augroup Inits
     autocmd!
     " TODO: Fix so that lsp shows, it is updated correctly at right time
+    autocmd BufEnter * lua require'statusline'.statusline_init()
     autocmd WinEnter,BufEnter * lua require'statusline'.activeLine()
     autocmd WinLeave,BufLeave * lua require'statusline'.inActiveLine()
     autocmd WinEnter,BufEnter,WinLeave,BufLeave NvimTree lua require'statusline'.simpleLine()
