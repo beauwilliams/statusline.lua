@@ -57,7 +57,7 @@ local mybg = '#504945'
 
 --Statusline colour
 local statusline_bg = 'None' --> Set to none, use native bg
-local statusline_fg = white_fg
+local statusline_fg = 'None'
 
 -- Redraw different colors for different mode
 local set_mode_colours = function(mode)
