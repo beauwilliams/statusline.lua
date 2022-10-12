@@ -16,7 +16,6 @@ function M.diagnostics()
 	local has_vim_diagnostics, _ = pcall(require, 'vim.diagnostic')
 	local has_lsp_diagnostics, _ = pcall(require, 'vim.lsp.diagnostic')
 	local e, w, i, h
-	-- NOTE: nvim 0.6.1+ depracated vim.lsp.diagnostic
 	if has_vim_diagnostics then
 		local res = { 0, 0, 0, 0 }
 		for _, diagnostic in ipairs(vim.diagnostic.get(0)) do
@@ -37,8 +36,8 @@ function M.diagnostics()
 
 	diagnostics = e ~= 0 and diagnostics .. ' ' .. e .. space or diagnostics
 	diagnostics = w ~= 0 and diagnostics .. ' ' .. w .. space or diagnostics
-	diagnostics = i ~= 0 and diagnostics .. '𝒊 ' .. i .. space or diagnostics
-	diagnostics = h ~= 0 and diagnostics .. ' ' .. h .. space or diagnostics
+	diagnostics = i ~= 0 and diagnostics .. ' ' .. i .. space or diagnostics
+	diagnostics = h ~= 0 and diagnostics .. ' ' .. h .. space or diagnostics
 	return diagnostics
 end
 
