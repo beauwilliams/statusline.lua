@@ -42,18 +42,18 @@ function M.diagnostics()
 end
 
 local function format_messages(messages)
-	local result = {}
+    local result = {}
     local spinners = { '⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏' }
     local ms = vim.loop.hrtime() / 1000000
     local frame = math.floor(ms / 120) % #spinners
 
-	table.insert(result, (messages.percentage or 0) .. '%% ' .. (messages.title or ""))
-	return table.concat(result, ' ') .. ' ' .. spinners[frame + 1]
+    table.insert(result, (messages.percentage or 0) .. '%% ' .. (messages.title or ""))
+    return table.concat(result, ' ') .. ' ' .. spinners[frame + 1]
 end
 
 -- REQUIRES LSP
 function M.lsp_progress()
-	local clients = vim.lsp.get_active_clients()
+    local clients = vim.lsp.get_active_clients()
     if vim.o.columns < 120 or #clients == 0 then
         return ""
     end
@@ -68,12 +68,12 @@ function M.lsp_progress()
         if msg and msg.value then
             msg_val = msg.value
         end
-		-- Only display at most 2 progress messages at a time to avoid clutter
+        -- Only display at most 2 progress messages at a time to avoid clutter
         local i = 1
-		for pmsg in c.progress do
+        for pmsg in c.progress do
             if pmsg and pmsg.value and i < 3 then
                 msg_val = pmsg.value
-				i = i + 1
+                i = i + 1
             end
         end
     end)
