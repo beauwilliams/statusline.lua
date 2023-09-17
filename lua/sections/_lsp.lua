@@ -61,10 +61,10 @@ end
 function M.lsp_progress()
     local messages = {}
 
-    if vim.fn.has "neovim-0.10" then
-        local prog_msg = vim.lsp.util.get_progress_messages()
+    if vim.fn.has "nvim-0.10" then
+        local clients = vim.lsp.get_active_clients()
 
-        vim.iter(prog_msg):each(function(c)
+        vim.iter(clients):each(function(c)
             local msg = c.progress:pop()
             if msg and msg.value then
                 table.insert(messages, msg.value)
