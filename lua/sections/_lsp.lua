@@ -61,7 +61,7 @@ end
 function M.lsp_progress()
     local messages = {}
 
-	-- get_progress_messages deprecated in favor of vim.lsp.status
+    -- get_progress_messages deprecated in favor of vim.lsp.status
     if vim.lsp.status then
         local clients = vim.lsp.get_active_clients()
 
@@ -78,7 +78,7 @@ function M.lsp_progress()
             end
         end)
     else
-		-- Support for older versions of Neovim
+        -- Support for older versions of Neovim
         messages = vim.lsp.util.get_progress_messages()
     end
 
