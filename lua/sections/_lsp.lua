@@ -42,47 +42,49 @@ function M.diagnostics()
 end
 
 local function format_messages(messages)
-    local result = {}
-    local spinners = { '⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏' }
-    local ms = vim.loop.hrtime() / 1000000
-    local frame = math.floor(ms / 120) % #spinners
-
-    table.insert(result, (messages.percentage or 0) .. '%% ' .. (messages.title or ""))
-    return table.concat(result, ' ') .. ' ' .. spinners[frame + 1]
+	local result = {}
+	local spinners = { '⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏' }
+	local ms = vim.loop.hrtime() / 1000000
+	local frame = math.floor(ms / 120) % #spinners
+	local i = 1
+	for _, msg in pairs(messages) do
+		-- Only display at most 2 progress messages at a time to avoid clutter
+		if i < 3 then
+			table.insert(result, (msg.percentage or 0) .. '%% ' .. (msg.title or ''))
+			i = i + 1
+		end
+	end
+	return table.concat(result, ' ') .. ' ' .. spinners[frame + 1]
 end
 
 -- REQUIRES LSP
 function M.lsp_progress()
-    local clients = vim.lsp.get_active_clients()
-    if vim.o.columns < 120 or #clients == 0 then
-        return ""
-    end
+    local messages = {}
 
-    local msg_val = nil
-    vim.iter(clients):each(function(c)
-        if msg_val then
-            return
-        end
+    if vim.fn.has "neovim-0.10" then
+        local prog_msg = vim.lsp.util.get_progress_messages()
 
-        local msg = c.progress:pop()
-        if msg and msg.value then
-            msg_val = msg.value
-        end
-        -- Only display at most 2 progress messages at a time to avoid clutter
-        local i = 1
-        for pmsg in c.progress do
-            if pmsg and pmsg.value and i < 3 then
-                msg_val = pmsg.value
-                i = i + 1
+        vim.iter(prog_msg):each(function(c)
+            local msg = c.progress:pop()
+            if msg and msg.value then
+                table.insert(messages, msg.value)
             end
-        end
-    end)
 
-    if not msg_val then
+            for pmsg in c.progress do
+                if pmsg and pmsg.value then
+                    table.insert(messages, pmsg.value)
+                end
+            end
+        end)
+    else
+        messages = vim.lsp.util.get_progress_messages()
+    end
+
+    if #messages == 0 then
         return ""
     end
 
-    return space..format_messages(msg_val)
+    return space..format_messages(messages)
 end
 
 -- REQUIRES NVIM LIGHTBULB
