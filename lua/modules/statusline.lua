@@ -141,7 +141,7 @@ function M.activeLine()
 
 	--Component: Lsp Progress
 	-- if lsp.lsp_progress()~= nil then
-	statusline = statusline .. lsp.lsp_progress()
+	statusline = statusline .. require('vim.lsp').status()
 	statusline = statusline .. '%#Statusline_LSP_Func# ' .. lsp.lightbulb()
 	-- end
 
