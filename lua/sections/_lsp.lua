@@ -59,11 +59,34 @@ end
 
 -- REQUIRES LSP
 function M.lsp_progress()
-	local messages = vim.lsp.util.get_progress_messages()
-	if #messages == 0 then
-		return ''
-	end
-	return space..format_messages(messages)
+    local messages = {}
+
+    -- get_progress_messages deprecated in favor of vim.lsp.status
+    if vim.lsp.status then
+        local clients = vim.lsp.get_active_clients()
+
+        vim.iter(clients):each(function(c)
+            local msg = c.progress:pop()
+            if msg and msg.value then
+                table.insert(messages, msg.value)
+            end
+
+            for pmsg in c.progress do
+                if pmsg and pmsg.value then
+                    table.insert(messages, pmsg.value)
+                end
+            end
+        end)
+    else
+        -- Support for older versions of Neovim
+        messages = vim.lsp.util.get_progress_messages()
+    end
+
+    if #messages == 0 then
+        return ""
+    end
+
+    return space..format_messages(messages)
 end
 
 -- REQUIRES NVIM LIGHTBULB
