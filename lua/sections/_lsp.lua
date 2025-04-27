@@ -63,7 +63,7 @@ function M.lsp_progress()
 
     -- get_progress_messages deprecated in favor of vim.lsp.status
     if vim.lsp.status then
-        local clients = vim.lsp.get_active_clients()
+        local clients = (vim.lsp.get_clients or vim.lsp.get_active_clients)()
 
         vim.iter(clients):each(function(c)
             local msg = c.progress:pop()
