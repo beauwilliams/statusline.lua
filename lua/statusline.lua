@@ -20,9 +20,14 @@ M.ale_diagnostics = false -- Disable Ale by default
 --                              Init                            --
 ------------------------------------------------------------------------
 function M.statusline_init()
-  statusline.set_highlights()
+	statusline.set_highlights()
+	-- Reapply highlights when colorscheme changes
+	vim.api.nvim_create_autocmd('ColorScheme', {
+		callback = function()
+			statusline.set_highlights()
+		end,
+	})
 end
-
 
 ------------------------------------------------------------------------
 --                              Statusline                            --
