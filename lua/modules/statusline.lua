@@ -9,7 +9,6 @@
 --                             Variables                              --
 ------------------------------------------------------------------------
 
--- TODO: [beauwilliams] --> Better handling of data
 local api = vim.api
 local cmd = api.nvim_command
 local call = vim.call
@@ -38,64 +37,85 @@ local space = ' '
 -- local tildeIcon = 'ﰣ'
 -- local minusIcon = ''
 -- local errorIcon =''
+-- local functionIcon ='󰊕'
 
 ------------------------------------------------------------------------
 --                             Colours                                --
 ------------------------------------------------------------------------
 
--- Different colors for mode
-local purple = '#BF616A' --#B48EAD
-local blue = '#83a598' --#81A1C1
-local yellow = '#fabd2f' --#EBCB8B
-local green = '#8ec07c' --#A3BE8C
-local red = '#fb4934' --#BF616A
+local function get_color(group, key, fallback)
+	local ok, hl = pcall(vim.api.nvim_get_hl_by_name, group, true)
+	if not ok then
+		return fallback
+	end
+	local color = hl[key]
+	if not color then
+		return fallback
+	end
+	return string.format('#%06x', color)
+end
 
--- fg and bg
-local white_fg = '#b8b894'
-local black_fg = '#282c34'
-local mybg = '#504945'
+-- Default colours
+local defaults = {
+	-- Different colors for mode
+	purple = '#BF616A', --#B48EAD
+	blue = '#83a598', --#81A1C1
+	yellow = '#fabd2f', --#EBCB8B
+	green = '#8ec07c', --#A3BE8C
+	red = '#fb4934', --#BF616A
 
---Statusline colour
-local statusline_bg = 'None' --> Set to none, use native bg
-local statusline_fg = 'None'
+	-- fg and bg
+	white_fg = '#b8b894',
+	black_fg = '#282c34',
+
+	-- Inactive bg
+	inactive_bg = '#1c1c1c',
+
+	-- Statusline colour
+	statusline_bg = 'NONE', -- Set to none, use native bg
+	statusline_fg = 'NONE',
+}
+
+local colors = {
+	purple = get_color('Statement', 'foreground', defaults.purple),
+	blue = get_color('Function', 'foreground', defaults.blue),
+	yellow = get_color('Constant', 'foreground', defaults.yellow),
+	green = get_color('String', 'foreground', defaults.green),
+	red = get_color('Error', 'foreground', defaults.red),
+	white_fg = get_color('Normal', 'foreground', defaults.white_fg),
+	black_fg = get_color('Normal', 'background', defaults.black_fg),
+	inactive_bg = get_color('NormalNC', 'background', defaults.inactive_bg),
+	statusline_bg = defaults.statusline_bg,
+	statusline_fg = defaults.statusline_fg,
+}
 
 -- Redraw different colors for different mode
 local set_mode_colours = function(mode)
 	if mode == 'n' then
-		cmd('hi Mode guibg=' .. green .. ' guifg=' .. black_fg .. ' gui=bold')
-		cmd('hi ModeSeparator guifg=' .. green)
-	end
-	if mode == 'i' then
-		cmd('hi Mode guibg=' .. blue .. ' guifg=' .. black_fg .. ' gui=bold')
-		cmd('hi ModeSeparator guifg=' .. blue)
-	end
-	if mode == 'v' or mode == 'V' or mode == '^V' then
-		cmd('hi Mode guibg=' .. purple .. ' guifg=' .. black_fg .. ' gui=bold')
-		cmd('hi ModeSeparator guifg=' .. purple)
-	end
-	if mode == 'c' then
-		cmd('hi Mode guibg=' .. yellow .. ' guifg=' .. black_fg .. ' gui=bold')
-		cmd('hi ModeSeparator guifg=' .. yellow)
-	end
-	if mode == 't' then
-		cmd('hi Mode guibg=' .. red .. ' guifg=' .. black_fg .. ' gui=bold')
-		cmd('hi ModeSeparator guifg=' .. red)
+		cmd('hi Mode guibg=' .. colors.green .. ' guifg=' .. colors.black_fg .. ' gui=bold')
+		cmd('hi ModeSeparator guifg=' .. colors.green)
+	elseif mode == 'i' then
+		cmd('hi Mode guibg=' .. colors.blue .. ' guifg=' .. colors.black_fg .. ' gui=bold')
+		cmd('hi ModeSeparator guifg=' .. colors.blue)
+	elseif mode == 'v' or mode == 'V' or mode == '^V' then
+		cmd('hi Mode guibg=' .. colors.purple .. ' guifg=' .. colors.black_fg .. ' gui=bold')
+		cmd('hi ModeSeparator guifg=' .. colors.purple)
+	elseif mode == 'c' then
+		cmd('hi Mode guibg=' .. colors.yellow .. ' guifg=' .. colors.black_fg .. ' gui=bold')
+		cmd('hi ModeSeparator guifg=' .. colors.yellow)
+	elseif mode == 't' then
+		cmd('hi Mode guibg=' .. colors.red .. ' guifg=' .. colors.black_fg .. ' gui=bold')
+		cmd('hi ModeSeparator guifg=' .. colors.red)
 	end
 end
 
-
 function M.set_highlights()
-    -- local statusline_font = 'regular'
-  cmd('hi Status_Line guibg=' .. statusline_bg .. ' guifg=' .. statusline_fg)
-
-  --LSP Function Highlight Color
-  cmd('hi Statusline_LSP_Func guibg=' .. statusline_bg .. ' guifg=' .. green)
-
-  -- INACTIVE BUFFER Colours
-  local InactiveLine_bg = '#1c1c1c'
-
-  local InactiveLine_fg = white_fg
-  cmd('hi InActive guibg=' .. InactiveLine_bg .. ' guifg=' .. InactiveLine_fg)
+	-- set Status_Line highlight
+	vim.api.nvim_set_hl(0, 'StatusLine', { bg = colors.statusline_bg, fg = colors.statusline_fg })
+	-- set Statusline_LSP_Func highlight
+	vim.api.nvim_set_hl(0, 'Statusline_LSP_Func', { bg = colors.statusline_bg, fg = colors.statusline_fg })
+	-- set InActive highlight
+	vim.api.nvim_set_hl(0, 'InActive', { bg = colors.inactive_bg, fg = colors.white_fg })
 end
 
 ------------------------------------------------------------------------
@@ -151,7 +171,6 @@ function M.activeLine()
 
 	-- Component: LSP CURRENT FUCTION --> Requires LSP
 	statusline = statusline .. '%#Statusline_LSP_Func# ' .. lsp.current_function()
-
 
 	-- Scrollbar
 	-- statusline = statusline.."%#Status_Line#"..call('Scrollbar')..space

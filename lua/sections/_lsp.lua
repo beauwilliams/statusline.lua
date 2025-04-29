@@ -4,10 +4,10 @@ local vim = vim
 
 function M.current_function()
 	local lsp_function = vim.b.lsp_current_function
-	if lsp_function == nil then
+	if lsp_function == nil or lsp_function == '' then
 		return ''
 	end
-	return lsp_function..space
+	return '󰊕' .. space .. lsp_function .. space
 end
 
 -- icons       
@@ -59,34 +59,34 @@ end
 
 -- REQUIRES LSP
 function M.lsp_progress()
-    local messages = {}
+	local messages = {}
 
-    -- get_progress_messages deprecated in favor of vim.lsp.status
-    if vim.lsp.status then
-        local clients = (vim.lsp.get_clients or vim.lsp.get_active_clients)()
+	-- get_progress_messages deprecated in favor of vim.lsp.status
+	if vim.lsp.status then
+		local clients = (vim.lsp.get_clients or vim.lsp.get_active_clients)()
 
-        vim.iter(clients):each(function(c)
-            local msg = c.progress:pop()
-            if msg and msg.value then
-                table.insert(messages, msg.value)
-            end
+		vim.iter(clients):each(function(c)
+			local msg = c.progress:pop()
+			if msg and msg.value then
+				table.insert(messages, msg.value)
+			end
 
-            for pmsg in c.progress do
-                if pmsg and pmsg.value then
-                    table.insert(messages, pmsg.value)
-                end
-            end
-        end)
-    else
-        -- Support for older versions of Neovim
-        messages = vim.lsp.util.get_progress_messages()
-    end
+			for pmsg in c.progress do
+				if pmsg and pmsg.value then
+					table.insert(messages, pmsg.value)
+				end
+			end
+		end)
+	else
+		-- Support for older versions of Neovim
+		messages = vim.lsp.util.get_progress_messages()
+	end
 
-    if #messages == 0 then
-        return ""
-    end
+	if #messages == 0 then
+		return ''
+	end
 
-    return space..format_messages(messages)
+	return space .. format_messages(messages)
 end
 
 -- REQUIRES NVIM LIGHTBULB
