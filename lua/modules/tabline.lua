@@ -65,13 +65,17 @@ function M.init()
 	for _, val in ipairs(tab_list) do
 		local file_name = getTabLabel(val)
 		if val == current_tab then
+			tabline = tabline .. '%' .. val .. 'T'
 			tabline = tabline .. '%#TabLineSelSeparator# ' .. left_separator
 			tabline = tabline .. '%#TabLineSel# ' .. file_name
 			tabline = tabline .. ' %#TabLineSelSeparator#' .. right_separator
+			tabline = tabline .. '%T'
 		else
+			tabline = tabline .. '%' .. val .. 'T'
 			tabline = tabline .. '%#TabLineSeparator# ' .. left_separator
 			tabline = tabline .. '%#TabLine# ' .. file_name
 			tabline = tabline .. ' %#TabLineSeparator#' .. right_separator
+			tabline = tabline .. '%T'
 		end
 	end
 
