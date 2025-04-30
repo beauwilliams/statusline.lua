@@ -5,29 +5,31 @@
 [![GitHub issues-closed](https://img.shields.io/github/issues-closed/beauwilliams/statusline.lua.svg)](https://GitHub.com/beauwilliams/statusline.lua/issues?q=is%3Aissue+is%3Aclosed)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 
-
 # Statusline.lua
+
 ![screenshot](https://i.imgur.com/QocSv7V.png)
 
 # Statusline
+
 ![screencast](https://i.ibb.co/wgTJ58D/ezgif-4-b462544889e2.gif)
 
 # Tabline [BONUS]
+
 ![screenshot](https://i.ibb.co/zhqf9nK/Screen-Shot-2021-02-09-at-2-19-10-pm.png)
 
 # Light Theme Compatible
+
 ![screenshot](https://i.ibb.co/VmQ6CMy/Screen-Shot-2022-03-20-at-1-10-40-pm.png)
 
-
-***A tidy statusline for neovim written in lua featuring***
+**_A tidy statusline for neovim written in lua featuring_**
 
 🔋 Batteries Included. No configuration needed.
 
-🕴  Minimalist Mode Indicators
+🕴 Minimalist Mode Indicators
 
 🔥 0.4ms Startup Time
 
-👁  Git Status [Signify]
+👁 Git Status [Signify]
 
 🌴 Git Branch
 
@@ -43,7 +45,7 @@
 
 👌 Clean Ruler
 
-⚙️  File Icon Support [Nerd Font]
+⚙️ File Icon Support [Nerd Font]
 
 🙌 Snipped File Paths
 
@@ -51,14 +53,14 @@
 
 🎨 Optional Colorscheme matching
 
-📻 By default colours inspired by *gruvbox*
+📻 By default colours inspired by _gruvbox_
 
 🚀 More to come!
-
 
 # Installation
 
 ### [lazy](https://github.com/folke/lazy.nvim)
+
 ```lua
 return {
 	'beauwilliams/statusline.lua',
@@ -67,19 +69,23 @@ return {
 	},
 	config = function()
 		require('statusline').setup({
-			inherit_colorscheme = true, -- Enable colorscheme inheritance (Default: false)
-			tabline = false, -- Enable the tabline (Default: true)
+			inherit_colorscheme = false, -- Enable colorscheme inheritance (Default: false)
+			tabline = true, -- Enable the tabline (Default: true)
 			lsp_diagnostics = true, -- Enable Native LSP diagnostics (Default: true)
 			ale_diagnostics = false, -- Enable ALE diagnostics (Default: false)
 		})
 	end,
 }
 ```
+
 ### [vim-plug](https://github.com/junegunn/vim-plug)
+
 ```vim
 Plug 'beauwilliams/statusline.lua'
 ```
+
 ### [packer.nvim](https://github.com/wbthomason/packer.nvim)
+
 ```lua
 use 'beauwilliams/statusline.lua'
 ```
@@ -95,6 +101,7 @@ We recommend using the new `setup` configuration format for more flexibility and
 For now, you can still use both the old format and the new one, but we encourage transitioning to the new `setup()` method for future compatibility.
 
 **Colorscheme Matching**
+
 ```lua
 -- Matches visual elements such as mode icon to your colorscheme
 require('statusline').setup({
@@ -103,6 +110,7 @@ require('statusline').setup({
 ```
 
 **Disable Tabline**
+
 ```lua
 require('statusline').setup({
   tabline = false,              -- Enable the tabline (Default: true)
@@ -110,6 +118,7 @@ require('statusline').setup({
 ```
 
 **Enable ALE Diagnostics Display**
+
 ```lua
 -- With ALE you can get errors displayed without explicitly needing an LSP server
 require('statusline').setup({
@@ -119,6 +128,7 @@ require('statusline').setup({
 ```
 
 **Enable Global Statusline (version 0.7+)**
+
 ```lua
 -- This setting will mean that you have one single statusline drawn accross the entire display
 lua vim.o.laststatus=3
@@ -151,7 +161,6 @@ Please before submitting a PR install stylua [here](https://github.com/JohnnyMor
 And run `stylua .` from your shell in the root folder of `focus.nvim`
 
 This will format the code according to the guidlines set in `stylua.toml`
-
 
 # Credits
 
