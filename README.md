@@ -76,7 +76,6 @@ We recommend using the new `setup` configuration format for more flexibility and
 
 For now, you can still use both the old format and the new one, but we encourage transitioning to the new `setup()` method for future compatibility.
 
-**
 ```lua
 -- To configure the statusline, use the `setup()` function.
 -- Below is an example with all the available configuration options.
@@ -134,7 +133,7 @@ lua vim.o.laststatus=3
 - [x] Shed Nvim-Webdev-Icons
 - [x] Support Native LSP
 - [x] Theme Support
-- [x] Migrate to modern setup() configuration
+- [x] Migrate to modern `setup()` configuration
 
 # Developers Only
 
