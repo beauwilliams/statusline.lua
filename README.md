@@ -57,6 +57,24 @@
 
 
 # Installation
+
+### [lazy](https://github.com/folke/lazy.nvim)
+```lua
+return {
+	'beauwilliams/statusline.lua',
+	dependencies = {
+		'nvim-lua/lsp-status.nvim',
+	},
+	config = function()
+		require('statusline').setup({
+			inherit_colorscheme = true, -- Enable colorscheme inheritance (Default: false)
+			tabline = false, -- Enable the tabline (Default: true)
+			lsp_diagnostics = true, -- Enable Native LSP diagnostics (Default: true)
+			ale_diagnostics = false, -- Enable ALE diagnostics (Default: false)
+		})
+	end,
+}
+```
 ### [vim-plug](https://github.com/junegunn/vim-plug)
 ```vim
 Plug 'beauwilliams/statusline.lua'
@@ -75,17 +93,6 @@ The configuration format using `statusline.tabline = false` (and similar setting
 We recommend using the new `setup` configuration format for more flexibility and better handling of user-defined settings.
 
 For now, you can still use both the old format and the new one, but we encourage transitioning to the new `setup()` method for future compatibility.
-
-```lua
--- To configure the statusline, use the `setup()` function.
--- Below is an example with all the available configuration options.
-require('statusline').setup({
-  inherit_colorscheme = false, -- Enable colorscheme matching (Default: false)
-  tabline = true,              -- Enable the tabline (Default: true)
-  lsp_diagnostics = true,      -- Enable Native LSP diagnostics (Default: true)
-  ale_diagnostics = false,     -- Enable ALE diagnostics (Default: false)
-})
-```
 
 **Colorscheme Matching**
 ```lua
