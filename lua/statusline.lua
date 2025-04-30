@@ -71,23 +71,23 @@ end
 --                              DEPRECATION                                  --
 ------------------------------------------------------------------------
 local function check_old_config()
-	if M.inherit_colorscheme or M.tabline or M.lsp_diagnostics or M.ale_diagnostics then
+	if M.match_colorscheme or M.tabline or M.lsp_diagnostics or M.ale_diagnostics then
 		vim.api.nvim_echo({
 			{
-				"statusline.lua: [DEPRECATION NOTICE] 'statusline.inherit_colorscheme', 'statusline.tabline', 'statusline.lsp_diagnostics', and 'statusline.ale_diagnostics' are deprecated. Use 'statusline.setup()' instead. See README.md.",
+				"statusline.lua: [DEPRECATION NOTICE] 'statusline.match_colorscheme', 'statusline.tabline', 'statusline.lsp_diagnostics', and 'statusline.ale_diagnostics' are deprecated. Use 'statusline.setup()' instead. See README.md.",
 				'WarningMsg',
 			},
 		}, true, {})
 
 		-- Migrate old config values to the new setup method
 		M.setup({
-			inherit_colorscheme = M.inherit_colorscheme or false,
+			match_colorscheme = M.match_colorscheme or false,
 			tabline = M.tabline or false,
 			lsp_diagnostics = M.lsp_diagnostics or false,
 			ale_diagnostics = M.ale_diagnostics or false,
 		})
 
-		M.inherit_colorscheme = nil
+		M.match_colorscheme = nil
 		M.tabline = nil
 		M.lsp_diagnostics = nil
 		M.ale_diagnostics = nil

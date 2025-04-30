@@ -2,13 +2,15 @@
 --                              TabLine                               --
 ------------------------------------------------------------------------
 local M = {}
+
 local api = vim.api
 local cmd = api.nvim_command
 local icons = require('tables._icons')
+local config = require('modules.config')
+
 -- Separators
 local left_separator = ''
 local right_separator = ''
--- Blank Between Components
 local space = ' '
 
 local TrimmedDirectory = function(dir)
@@ -42,19 +44,24 @@ local getTabLabel = function(n)
 end
 
 local set_colours = function()
-	--SET TABLINE COLOURS
-	cmd('hi TabLineSel gui=Bold guibg=#8ec07c guifg=#292929')
-	cmd('hi TabLineSelSeparator gui=bold guifg=#8ec07c')
-	cmd('hi TabLine guibg=#504945 guifg=#b8b894 gui=None')
-	cmd('hi TabLineSeparator guifg=#504945')
+	local colors = require('modules.colors').get()
+	cmd('hi TabLineSel gui=Bold guibg=' .. colors.green .. ' guifg=' .. colors.black_fg)
+	cmd('hi TabLineSelSeparator gui=bold guifg=' .. colors.green)
+	cmd('hi TabLine guibg=' .. colors.inactive_bg .. ' guifg=' .. colors.white_fg .. ' gui=None')
+	cmd('hi TabLineSeparator guifg=' .. colors.inactive_bg)
 	cmd('hi TabLineFill guibg=None gui=None')
 end
 
 function M.init()
+	if not config.get().tabline then
+		return ''
+	end
+
 	set_colours()
 	local tabline = ''
 	local tab_list = api.nvim_list_tabpages()
 	local current_tab = api.nvim_get_current_tabpage()
+
 	for _, val in ipairs(tab_list) do
 		local file_name = getTabLabel(val)
 		if val == current_tab then
@@ -67,8 +74,8 @@ function M.init()
 			tabline = tabline .. ' %#TabLineSeparator#' .. right_separator
 		end
 	end
+
 	tabline = tabline .. '%='
-	-- Component: Working Directory
 	local dir = api.nvim_call_function('getcwd', {})
 	tabline = tabline
 		.. '%#TabLineSeparator#'
@@ -77,6 +84,7 @@ function M.init()
 		.. TrimmedDirectory(dir)
 		.. '%#TabLineSeparator#'
 		.. right_separator
+
 	tabline = tabline .. space
 	return tabline
 end

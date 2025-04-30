@@ -3,7 +3,7 @@ local _config = {}
 
 local function get_defaults()
 	return {
-		inherit_colorscheme = false,
+		match_colorscheme = false,
 		tabline = false,
 		lsp_diagnostics = true,
 		ale_diagnostics = false,

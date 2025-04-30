@@ -9,10 +9,7 @@
 --                             Variables                              --
 ------------------------------------------------------------------------
 
-local api = vim.api
-local cmd = api.nvim_command
-local call = vim.call
-local config = require('modules.config')
+local cmd = vim.api.nvim_command
 local modes = require('tables._modes')
 local git_branch = require('sections._git_branch')
 local lsp = require('sections._lsp')
@@ -31,71 +28,13 @@ local right_separator = ''
 -- Blank Between Components
 local space = ' '
 
--- Icons (future use)
--- local warningIcon = ''
--- local exclamationIcon = ''
--- local plusIcon = ''
--- local tildeIcon = 'ﰣ'
--- local minusIcon = ''
--- local errorIcon =''
--- local functionIcon ='󰊕'
-
 ------------------------------------------------------------------------
 --                             Colours                                --
 ------------------------------------------------------------------------
 
-local function get_color(group, key, fallback)
-	local ok, hl = pcall(vim.api.nvim_get_hl_by_name, group, true)
-	if not ok or not config.get().inherit_colorscheme then
-		return fallback
-	end
-	local color = hl[key]
-	if not color then
-		return fallback
-	end
-	return string.format('#%06x', color)
-end
-
--- Default colours
-local defaults = {
-	-- Different colors for mode
-	purple = '#BF616A', --#B48EAD
-	blue = '#83a598', --#81A1C1
-	yellow = '#fabd2f', --#EBCB8B
-	green = '#8ec07c', --#A3BE8C
-	red = '#fb4934', --#BF616A
-
-	-- fg and bg
-	white_fg = '#b8b894',
-	black_fg = '#282c34',
-
-	-- Inactive bg
-	inactive_bg = '#1c1c1c',
-
-	-- Statusline colour
-	statusline_bg = 'NONE', -- Set to none, use native bg
-	statusline_fg = 'NONE',
-}
-
-local colors = nil
-
-local function compute_colors()
-	colors = {
-		purple = get_color('Statement', 'foreground', defaults.purple),
-		blue = get_color('Function', 'foreground', defaults.blue),
-		yellow = get_color('Constant', 'foreground', defaults.yellow),
-		green = get_color('String', 'foreground', defaults.green),
-		red = get_color('Error', 'foreground', defaults.red),
-		white_fg = get_color('Normal', 'foreground', defaults.white_fg),
-		black_fg = get_color('Normal', 'background', defaults.black_fg),
-		inactive_bg = get_color('NormalNC', 'background', defaults.inactive_bg),
-		statusline_bg = defaults.statusline_bg,
-		statusline_fg = defaults.statusline_fg,
-	}
-end
-
 -- Redraw different colors for different mode
-local set_mode_colours = function(mode)
+local function set_mode_colours(mode)
+	local colors = require('modules.colors').get()
 	if mode == 'n' then
 		cmd('hi Mode guibg=' .. colors.green .. ' guifg=' .. colors.black_fg .. ' gui=bold')
 		cmd('hi ModeSeparator guifg=' .. colors.green)
@@ -115,15 +54,13 @@ local set_mode_colours = function(mode)
 end
 
 function M.set_highlights()
-	if not colors then
-		compute_colors()
-	end
+	local colors = require('modules.colors').get()
 	-- set Status_Line highlight
-	vim.api.nvim_set_hl(0, 'StatusLine', { bg = colors.statusline_bg, fg = colors.statusline_fg })
+	cmd('hi StatusLine guibg=' .. colors.statusline_bg .. ' guifg=' .. colors.statusline_fg)
 	-- set Statusline_LSP_Func highlight
-	vim.api.nvim_set_hl(0, 'Statusline_LSP_Func', { bg = colors.statusline_bg, fg = colors.statusline_fg })
+	cmd('hi Statusline_LSP_Func guibg=' .. colors.statusline_bg .. ' guifg=' .. colors.statusline_fg)
 	-- set InActive highlight
-	vim.api.nvim_set_hl(0, 'InActive', { bg = colors.inactive_bg, fg = colors.white_fg })
+	cmd('hi InActive guibg=' .. colors.inactive_bg .. ' guifg=' .. colors.white_fg)
 end
 
 ------------------------------------------------------------------------
@@ -132,7 +69,7 @@ end
 function M.activeLine()
 	local statusline = ''
 	-- Component: Mode
-	local mode = api.nvim_get_mode()['mode']
+	local mode = vim.api.nvim_get_mode()['mode']
 	set_mode_colours(mode)
 	statusline = statusline .. '%#ModeSeparator#' .. space
 	statusline = statusline
@@ -150,7 +87,7 @@ function M.activeLine()
 	-- Component: errors and warnings -> requires ALE
 	-- TODO: [beauwilliams] --> IMPLEMENT A LUA VERSION OF BELOW VIMSCRIPT FUNCS
 	if diag_ale then
-		statusline = statusline .. call('LinterStatus')
+		statusline = statusline .. vim.call('LinterStatus')
 	end
 
 	-- Component: Native Nvim LSP Diagnostic
@@ -181,7 +118,7 @@ function M.activeLine()
 	statusline = statusline .. '%#Statusline_LSP_Func# ' .. lsp.current_function()
 
 	-- Scrollbar
-	-- statusline = statusline.."%#Status_Line#"..call('Scrollbar')..space
+	-- statusline = statusline.."%#Status_Line#"..vim.call('Scrollbar')..space
 
 	-- Component: Modified, Read-Only, Filesize, Row/Col
 	statusline = statusline .. '%#Status_Line#' .. bufmod.is_buffer_modified()
