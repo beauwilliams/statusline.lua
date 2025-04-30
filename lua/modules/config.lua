@@ -1,14 +1,12 @@
--- TODO: UNIMPLEMENTED FEATURE - Implement more extensive capabilities to configure statusline and verify configs.
 local M = {}
-
 local _config = {}
--- local _user_config = {}
 
 local function get_defaults()
 	return {
-		options = {
-			lsp_client = 'native',
-		},
+		inherit_colorscheme = false,
+		tabline = false,
+		lsp_diagnostics = true,
+		ale_diagnostics = false,
 	}
 end
 
@@ -22,7 +20,16 @@ end
 function M.set(user_config)
 	user_config = user_config or {}
 	local defaults = get_defaults()
-	-- _user_config = user_config
 	_config = merge(defaults, user_config)
 	return _config
 end
+
+function M.get()
+	return _config
+end
+
+function M.setup(user_config)
+	M.set(user_config)
+end
+
+return M

@@ -12,6 +12,7 @@
 local api = vim.api
 local cmd = api.nvim_command
 local call = vim.call
+local config = require('modules.config')
 local modes = require('tables._modes')
 local git_branch = require('sections._git_branch')
 local lsp = require('sections._lsp')
@@ -45,7 +46,7 @@ local space = ' '
 
 local function get_color(group, key, fallback)
 	local ok, hl = pcall(vim.api.nvim_get_hl_by_name, group, true)
-	if not ok then
+	if not ok or not config.get().inherit_colorscheme then
 		return fallback
 	end
 	local color = hl[key]
@@ -76,18 +77,22 @@ local defaults = {
 	statusline_fg = 'NONE',
 }
 
-local colors = {
-	purple = get_color('Statement', 'foreground', defaults.purple),
-	blue = get_color('Function', 'foreground', defaults.blue),
-	yellow = get_color('Constant', 'foreground', defaults.yellow),
-	green = get_color('String', 'foreground', defaults.green),
-	red = get_color('Error', 'foreground', defaults.red),
-	white_fg = get_color('Normal', 'foreground', defaults.white_fg),
-	black_fg = get_color('Normal', 'background', defaults.black_fg),
-	inactive_bg = get_color('NormalNC', 'background', defaults.inactive_bg),
-	statusline_bg = defaults.statusline_bg,
-	statusline_fg = defaults.statusline_fg,
-}
+local colors = nil
+
+local function compute_colors()
+	colors = {
+		purple = get_color('Statement', 'foreground', defaults.purple),
+		blue = get_color('Function', 'foreground', defaults.blue),
+		yellow = get_color('Constant', 'foreground', defaults.yellow),
+		green = get_color('String', 'foreground', defaults.green),
+		red = get_color('Error', 'foreground', defaults.red),
+		white_fg = get_color('Normal', 'foreground', defaults.white_fg),
+		black_fg = get_color('Normal', 'background', defaults.black_fg),
+		inactive_bg = get_color('NormalNC', 'background', defaults.inactive_bg),
+		statusline_bg = defaults.statusline_bg,
+		statusline_fg = defaults.statusline_fg,
+	}
+end
 
 -- Redraw different colors for different mode
 local set_mode_colours = function(mode)
@@ -110,6 +115,9 @@ local set_mode_colours = function(mode)
 end
 
 function M.set_highlights()
+	if not colors then
+		compute_colors()
+	end
 	-- set Status_Line highlight
 	vim.api.nvim_set_hl(0, 'StatusLine', { bg = colors.statusline_bg, fg = colors.statusline_fg })
 	-- set Statusline_LSP_Func highlight

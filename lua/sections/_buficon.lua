@@ -9,7 +9,7 @@ function M.get_file_icon(bufnr)
 	--we use full filename to detect terminal windows
 	file_name = api.nvim_buf_get_name(bufnr or 0)
 	if string.find(file_name, 'term://') ~= nil then
-		icon = ''..space
+		icon = '' .. space
 		return icon
 	end
 	icon = devicons.deviconTable[file_name]

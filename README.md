@@ -49,9 +49,12 @@
 
 😻 Tabline Support
 
-🎨 Smooth colours inspired by *gruvbox*
+🎨 Optional Colorscheme matching
+
+📻 By default colours inspired by *gruvbox*
 
 🚀 More to come!
+
 
 # Installation
 ### [vim-plug](https://github.com/junegunn/vim-plug)
@@ -64,20 +67,49 @@ use 'beauwilliams/statusline.lua'
 ```
 
 # Configuration
+
+**Deprecation Notice**
+
+The configuration format using `statusline.tabline = false` (and similar settings) will be deprecated in the next major release.
+
+We recommend using the new `setup` configuration format for more flexibility and better handling of user-defined settings.
+
+For now, you can still use both the old format and the new one, but we encourage transitioning to the new `setup()` method for future compatibility.
+
+**
+```lua
+-- To configure the statusline, use the `setup()` function.
+-- Below is an example with all the available configuration options.
+require('statusline').setup({
+  inherit_colorscheme = false, -- Enable colorscheme matching (Default: false)
+  tabline = true,              -- Enable the tabline (Default: true)
+  lsp_diagnostics = true,      -- Enable Native LSP diagnostics (Default: true)
+  ale_diagnostics = false,     -- Enable ALE diagnostics (Default: false)
+})
+```
+
+**Colorscheme Matching**
+```lua
+-- Matches visual elements such as mode icon to your colorscheme
+require('statusline').setup({
+  inherit_colorscheme = true, -- Enable colorscheme matching (Default: false)
+})
+```
+
 **Disable Tabline**
 ```lua
-local statusline = require('statusline')
-statusline.tabline = false
+require('statusline').setup({
+  tabline = false,              -- Enable the tabline (Default: true)
+})
 ```
 
 **Enable ALE Diagnostics Display**
 ```lua
--- NOTE: Nvim Native LSP is displayed default
--- I personally prefer ALE, with nathunsmitty/nvim-ale-diagnostic piping LSP diags
 -- With ALE you can get errors displayed without explicitly needing an LSP server
-local statusline = require('statusline')
-statusline.lsp_diagnostics = false
-statusline.ale_diagnostics = true
+require('statusline').setup({
+  lsp_diagnostics = false,      -- Enable Native LSP diagnostics (Default: true)
+  ale_diagnostics = true,     -- Enable ALE diagnostics (Default: false)
+})
 ```
 
 **Enable Global Statusline (version 0.7+)**
@@ -89,7 +121,7 @@ lua vim.o.laststatus=3
 ## Optional Dependencies
 
     - Signify [Git Status]
-    - Ale [Diagnostics] --> I recommend ALE with nathunsmitty/nvim-ale-diagnostic
+    - Ale [Diagnostics] --> nathunsmitty/nvim-ale-diagnostic
     - Native LSP [Current Function] --> require('lsp-status').on_attach(client)
     - Native LSP [Diagnostics] --> Must have a relevant language server to provide diagnostics
     - Native LSP [Progress %] --> Must have a relevant language server to provide progress messages
@@ -98,11 +130,11 @@ lua vim.o.laststatus=3
 ## Planned Improvements 😼
 
 - [ ] Completely move codebase to lua
-- [ ] Async everything
 - [x] Shed Fugitive
 - [x] Shed Nvim-Webdev-Icons
 - [x] Support Native LSP
-- [ ] Theme Support
+- [x] Theme Support
+- [x] Migrate to modern setup() configuration
 
 # Developers Only
 
